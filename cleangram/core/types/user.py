@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Optional
 
 from .base import TelegramType
 
@@ -9,4 +10,4 @@ class User(TelegramType):
     is_bot: bool
     first_name: str
     username: str
-    last_name: str = field(default=None)
+    last_name: Optional[str] = field(default=None)
