@@ -4,12 +4,17 @@ import logging
 from cleangram.core import Bot
 
 
+log = logging.getLogger(__name__)
+
+
 class Polling:
     def __init__(self, app):
         self.app = app
         self._running = False
 
     async def start(self):
+        log.info("Starting")
+
         self._running = True
         offset = 0
         async with Bot(self.app.tokens[0]) as bot:
@@ -25,4 +30,4 @@ class Polling:
         try:
             asyncio.run(self.start())
         except (KeyboardInterrupt, SystemExit):
-            logging.info("Polling shutdown")
+            logging.info("Shutdown")
