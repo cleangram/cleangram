@@ -5,6 +5,7 @@ from httpx import AsyncClient
 import json
 
 from cleangram.core.methods import TelegramMethod
+from ..types import Response
 
 TG_ENDPOINT = "https://api.telegram.org"
 
@@ -26,16 +27,19 @@ class BaseBot(abc.ABC):
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         return await self.__http.__aexit__(exc_type, exc_val, exc_tb)
 
-    async def __call__(self, method: TelegramMethod, timeout: int = 10):
-        response = await self.__http.post(
-            url=self._base_url(method),
-            data=self.__factory.dump(method),
-            timeout=timeout+.1
-        )
-        return self.__factory.load(json.loads(response.content), method.response).result
+    async def __call__(self, call: TelegramMethod, timeout: int = 10):
+        return (await self._request(call, timeout)).result
 
-    def _base_url(self, method: TelegramMethod) -> str:
-        return f"{self.__endpoint}/bot{self.__token}/{method.path}"
+    async def _request(self, call: TelegramMethod, timeout: int) -> Response:
+        response = await self.__http.post(
+            url=self._base_url(call),
+            data=self.__factory.dump(call),
+            timeout=timeout + .1
+        )
+        return self.__factory.load(json.loads(response.content), call.response)
+
+    def _base_url(self, call: TelegramMethod) -> str:
+        return f"{self.__endpoint}/bot{self.__token}/{call.path}"
 
     async def cleanup(self):
         await self.__http.aclose()
