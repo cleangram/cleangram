@@ -11,8 +11,6 @@ class TelegramMethod:
     def __init_subclass__(cls, /, **kwargs):
         cls.response = kwargs.get("response")
         cls.path = cls.__name__
-        cls.presets = {}
 
     def install_presets(self, presets: Presets):
         pass
-
