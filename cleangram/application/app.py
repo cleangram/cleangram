@@ -5,8 +5,13 @@ from .workers import Polling
 from ..core import Update, Bot
 
 
-class App:
-    def __init__(self, tokens=None):
+class Cleangram(Router):
+    def __init__(
+        self,
+        tokens=None,
+        webhook_endpoint="",
+        telegram_endpoint=""
+    ) -> None:
         self.messages = []
         self.tokens = tokens or [os.getenv("TELEGRAM_BOT_TOKEN")]
 
