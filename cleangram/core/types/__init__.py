@@ -3,6 +3,7 @@ from .base import TelegramType
 from .response import Response
 from .update import Update
 from .message import Message
+from .input_file import InputFile
 
 
 __all__ = [
@@ -10,5 +11,6 @@ __all__ = [
     "User",
     "Response",
     "Update",
-    "Message"
+    "Message",
+    "InputFile"
 ]
