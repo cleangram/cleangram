@@ -1,6 +1,7 @@
 import os
 from typing import Callable
 
+from .router import Router
 from .workers import Polling
 from ..core import Update, Bot
 
@@ -10,17 +11,11 @@ class Cleangram(Router):
         self,
         tokens=None,
         webhook_endpoint="",
-        telegram_endpoint=""
+        telegram_endpoint="",
+        **router_kwargs
     ) -> None:
-        self.messages = []
         self.tokens = tokens or [os.getenv("TELEGRAM_BOT_TOKEN")]
-
-    def message(self, callback: Callable):
-        self.messages.append(callback)
-
-    async def notify(self, update: Update, bot: Bot):
-        for m in self.messages:
-            await m(update.message, bot)
+        super(Cleangram, self).__init__(**router_kwargs)
 
     @property
     def polling(self):
