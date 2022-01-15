@@ -4,6 +4,7 @@ from .response import Response
 from .update import Update
 from .message import Message
 from .input_file import InputFile
+from .webhook_info import WebhookInfo
 
 
 __all__ = [
@@ -12,5 +13,6 @@ __all__ = [
     "Response",
     "Update",
     "Message",
-    "InputFile"
+    "InputFile",
+    "WebhookInfo"
 ]
