@@ -1,7 +1,4 @@
-from enum import Enum
-
-
-class ParseMode(Enum):
-    HTML = "HTML"
-    Markdown = "Markdown"
-    MarkdownV2 = "MarkdownV2"
+class ParseMode:
+    HTML: str = "HTML"
+    Markdown: str = "Markdown"
+    MarkdownV2: str = "MarkdownV2"
