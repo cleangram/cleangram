@@ -6,6 +6,7 @@ from ..types import (
     Message,
     Response
 )
+from ..utils import Presets
 
 
 @dataclass
@@ -21,3 +22,7 @@ class SendMessage(TelegramMethod, response=Response[Message]):
     protect_content: Optional[bool] = None
     reply_to_message_id: Optional[int] = None
     allow_sending_without_reply: Optional[bool] = None
+
+    def install_presets(self, presets: Presets):
+        self.parse_mode = self.parse_mode or presets.parse_mode
+        self.disable_web_page_preview = self.disable_web_page_preview or presets.disable_web_page_preview

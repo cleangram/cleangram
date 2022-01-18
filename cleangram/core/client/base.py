@@ -6,6 +6,7 @@ import json
 
 from cleangram.core.methods import TelegramMethod
 from ..types import Response
+from ..utils import ParseMode, Presets
 
 TG_ENDPOINT = "https://api.telegram.org"
 
@@ -14,12 +15,18 @@ class BaseBot(abc.ABC):
     def __init__(
         self,
         token: str,
-        endpoint: str = TG_ENDPOINT
+        endpoint: str = TG_ENDPOINT,
+        parse_mode: str = None,
+        disable_web_page_preview: bool = None
     ) -> None:
         self.__token = token
         self.__endpoint = endpoint
         self.__http = AsyncClient()
         self.__factory = Factory(default_schema=Schema(omit_default=True))
+        self.__presets = Presets(
+            parse_mode=parse_mode,
+            disable_web_page_preview=disable_web_page_preview
+        )
 
     async def __aenter__(self):
         return self
