@@ -1,9 +1,7 @@
 import os
-from typing import Callable
 
 from .router import Router
 from .workers import Polling
-from ..core import Update, Bot
 
 
 class Cleangram(Router):
