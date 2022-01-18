@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-
-from .parse_mode import ParseMode
+from typing import Optional
 
 
 @dataclass
 class Presets:
-    parse_mode: ParseMode
+    parse_mode: Optional[str] = None
+    disable_web_page_preview: Optional[bool] = None
