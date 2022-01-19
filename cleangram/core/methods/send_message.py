@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Union, Optional, List
+from typing import Union, Optional
 
 from .base import TelegramMethod
 from ..types import (
