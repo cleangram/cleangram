@@ -2,3 +2,5 @@ httpx
 pytest-asyncio
 pytest
 dataclass_factory
+orjson
+starlette
