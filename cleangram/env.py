@@ -5,7 +5,7 @@ from typing import Optional
 
 @dataclass(frozen=True)
 class _Env:
-    TELEGRAM_BOT_TOKEN: Optional[str] = None
+    TELEGRAM_BOT_TOKEN: Optional[str] = ""
     TELEGRAM_API_ENDPOINT: str = "https://api.telegram.org"
     WEBHOOK_ENDPOINT: str = ""
 
