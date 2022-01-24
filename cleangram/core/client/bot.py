@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Optional
 
 from .base import BaseBot
 from ..types import User, Update, Message, InputFile, WebhookInfo
@@ -42,10 +42,22 @@ class Bot(BaseBot):
 
     async def send_message(
         self,
-        chat_id: Union[int, str],
-        text: str
+        chat_id: Union[str, int],
+        text: str,
+        parse_mode: Optional[str] = None,
+        disable_web_page_preview: Optional[bool] = None,
+        disable_notification: Optional[bool] = None,
+        protect_content: Optional[bool] = None,
+        reply_to_message_id: Optional[int] = None,
+        allow_sending_without_reply: Optional[bool] = None
     ) -> Message:
         return await self(SendMessage(
             chat_id=chat_id,
-            text=text
+            text=text,
+            parse_mode=parse_mode,
+            disable_web_page_preview=disable_web_page_preview,
+            disable_notification=disable_notification,
+            protect_content=protect_content,
+            reply_to_message_id=reply_to_message_id,
+            allow_sending_without_reply=allow_sending_without_reply
         ))
