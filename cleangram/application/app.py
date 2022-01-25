@@ -1,6 +1,8 @@
 import os
 from typing import List
 
+from starlette.applications import Starlette
+
 from .router import Router
 from .workers import Polling
 from ..env import env
@@ -20,3 +22,10 @@ class App(Router):
     @property
     def polling(self):
         return Polling(self)
+
+    @property
+    def st(self) -> Starlette:
+        st = Starlette()
+
+        return st
+
