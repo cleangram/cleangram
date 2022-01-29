@@ -6,7 +6,6 @@ import json
 
 from cleangram.core.methods import TelegramMethod
 from ..types import Response
-from ..utils import ParseMode, Presets
 from ...env import env
 
 
