@@ -1,16 +1,22 @@
-from typing import Type
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Type, ClassVar, TYPE_CHECKING
 
 from ..types import Response
-from ..utils import Presets
+
+if TYPE_CHECKING:
+    from ..client.bot import Bot
 
 
+@dataclass
 class TelegramMethod:
-    response: Type[Response]
-    path: str
+    response: ClassVar[Type[Response]]
+    path: ClassVar[str]
 
     def __init_subclass__(cls, /, **kwargs):
         cls.response = kwargs.get("response")
         cls.path = cls.__name__
 
-    def install_presets(self, presets: Presets):
+    def preset(self, bot: Bot):
         pass
