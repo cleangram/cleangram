@@ -38,7 +38,10 @@ class BaseBot(abc.ABC):
             data=self.__factory.dump(call),
             timeout=timeout + .1
         )
-        return self.__factory.load(json.loads(response.content), call.response)
+        return self.__factory.load(
+            data=json.loads(response.content),
+            class_=call.response
+        )
 
     def _base_url(self, call: TelegramMethod) -> str:
         return f"{self.__endpoint}/bot{self.__token}/{call.path}"

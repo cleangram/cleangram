@@ -1,1 +1,1 @@
-__bot_api__ = "tested"
+__bot_api__ = "5.6"

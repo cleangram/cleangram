@@ -11,12 +11,12 @@ from ..env import env
 class App(Router):
     def __init__(
         self,
-        tokens: List[str] = env.TELEGRAM_BOT_TOKEN.split(),
+        token: str = env.TELEGRAM_BOT_TOKEN,
         webhook_endpoint: str = env.WEBHOOK_ENDPOINT,
         telegram_endpoint: str = env.TELEGRAM_API_ENDPOINT,
         **router_kwargs
     ) -> None:
-        self.tokens = tokens
+        self.token = token
         super(App, self).__init__(**router_kwargs)
 
     @property
