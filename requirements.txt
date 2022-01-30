@@ -4,3 +4,4 @@ pytest
 dataclass_factory
 orjson
 starlette
+mkdocs
