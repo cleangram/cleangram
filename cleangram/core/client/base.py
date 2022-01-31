@@ -21,7 +21,7 @@ class BaseBot(abc.ABC):
         self.__endpoint = endpoint
         self.__http = AsyncClient()
         self.__factory = Factory(default_schema=Schema(omit_default=True))
-        self._parse_mode = parse_mode
+        self.parse_mode = parse_mode
 
     async def __aenter__(self):
         return self
@@ -33,9 +33,11 @@ class BaseBot(abc.ABC):
         return (await self._request(call, timeout)).result
 
     async def _request(self, call: TelegramMethod, timeout: int) -> Response:
+        call.preset(self)
+        data = self.__factory.dump(call)
         response = await self.__http.post(
             url=self._base_url(call),
-            data=self.__factory.dump(call),
+            data=data,
             timeout=timeout + .1
         )
         return self.__factory.load(

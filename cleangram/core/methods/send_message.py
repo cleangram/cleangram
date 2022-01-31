@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List, Union
+from typing import Optional, List, Union, TYPE_CHECKING
 
 from ..types import (
     Response,
@@ -13,6 +13,9 @@ from ..types import (
     ForceReply
 )
 from .base import TelegramMethod
+
+if TYPE_CHECKING:
+    from ..client.base import BaseBot
 
 
 @dataclass
@@ -62,3 +65,6 @@ class SendMessage(TelegramMethod, response=Response[Message]):
     """Additional interface options. A JSON-serialized object for
     an inline keyboard, custom reply keyboard, instructions to
     remove reply keyboard or to force a reply from the user."""
+
+    def preset(self, bot: BaseBot):
+        self.parse_mode = self.parse_mode or bot.parse_mode
