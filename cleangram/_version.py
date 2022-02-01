@@ -3,3 +3,4 @@ minor: int = 0
 micro: int = 0
 release: str = "a1"
 __version__ = ".".join(map(str, [major, minor, micro, release]))
+__bot_api__ = "5.6"
