@@ -1,6 +1,6 @@
 from typing import Generic, TypeVar, List, Callable, Any
 
-from ...core import Bot
+from ...client import Bot
 from cleangram.application.observers.base import Observer
 
 U = TypeVar("U")

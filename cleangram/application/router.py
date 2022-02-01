@@ -1,4 +1,4 @@
-from ..core import Message
+from ..types import Message
 from .observers.update import UpdateObserver
 
 

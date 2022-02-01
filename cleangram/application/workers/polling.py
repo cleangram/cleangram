@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from cleangram.core import Bot
+from cleangram.client import Bot
 
 
 log = logging.getLogger(__name__)
