@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List
 
-from .base import TelegramType
 from .inline_keyboard_button import InlineKeyboardButton
+from .base import TelegramType
 
 
 @dataclass

@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List
+from typing import List, Optional
 
+from .photo_size import PhotoSize
 from .sticker import Sticker
 from .base import TelegramType
-from .photo_size import PhotoSize
 
 
 @dataclass
@@ -24,6 +24,9 @@ class StickerSet(TelegramType):
     is_animated: bool
     """True, if the sticker set contains animated stickers"""
 
+    is_video: bool
+    """True, if the sticker set contains video stickers"""
+
     contains_masks: bool
     """True, if the sticker set contains masks"""
 
@@ -31,4 +34,5 @@ class StickerSet(TelegramType):
     """List of all set stickers"""
 
     thumb: Optional[PhotoSize] = field(default=None)
-    """Optional. Sticker set thumbnail in the .WEBP or .TGS format"""
+    """Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM
+    format"""

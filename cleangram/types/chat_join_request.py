@@ -4,8 +4,8 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from .chat import Chat
-from .base import TelegramType
 from .chat_invite_link import ChatInviteLink
+from .base import TelegramType
 from .user import User
 
 

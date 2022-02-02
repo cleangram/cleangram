@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, InitVar, field
-from typing import Optional, List, Union
+from dataclasses import dataclass, field, InitVar
+from typing import List, Optional, Union
 
 from .input_file import InputFile
-from .message_entity import MessageEntity
 from .input_media import InputMedia
+from .message_entity import MessageEntity
 
 
 @dataclass

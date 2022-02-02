@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List, Union
+from typing import List, Optional, Union
 
-from cleangram.types import (
-    InputMediaVideo,
-    Response,
+from ..types import (
+    InputMediaAudio,
     InputMediaDocument,
     InputMediaPhoto,
-    InputMediaAudio,
-    Message
+    InputMediaVideo,
+    Message,
+    Response
 )
 from .base import TelegramMethod
 

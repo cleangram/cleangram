@@ -3,14 +3,14 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
-from cleangram.types import (
-    Response,
-    InputFile,
-    ReplyKeyboardRemove,
+from ..types import (
+    ForceReply,
     InlineKeyboardMarkup,
-    ReplyKeyboardMarkup,
+    InputFile,
     Message,
-    ForceReply
+    ReplyKeyboardMarkup,
+    ReplyKeyboardRemove,
+    Response
 )
 from .base import TelegramMethod
 
@@ -18,8 +18,9 @@ from .base import TelegramMethod
 @dataclass
 class SendSticker(TelegramMethod, response=Response[Message]):
     """
-    Use this method to send static .WEBP or animated .TGS
-    stickers. On success, the sent Message is returned.
+    Use this method to send static .WEBP, animated .TGS, or
+    video .WEBM stickers. On success, the sent Message is
+    returned.
 
     Reference: https://core.telegram.org/bots/api#sendsticker
     """

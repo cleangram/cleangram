@@ -4,8 +4,8 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from .mask_position import MaskPosition
-from .base import TelegramType
 from .photo_size import PhotoSize
+from .base import TelegramType
 
 
 @dataclass
@@ -32,6 +32,9 @@ class Sticker(TelegramType):
 
     is_animated: bool
     """True, if the sticker is animated"""
+
+    is_video: bool
+    """True, if the sticker is a video sticker"""
 
     thumb: Optional[PhotoSize] = field(default=None)
     """Optional. Sticker thumbnail in the .WEBP or .JPG format"""

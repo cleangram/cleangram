@@ -1,21 +1,18 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List, Union, TYPE_CHECKING
+from typing import List, Optional, Union
 
-from cleangram.types import (
-    Response,
-    ReplyKeyboardRemove,
+from ..types import (
+    ForceReply,
     InlineKeyboardMarkup,
-    ReplyKeyboardMarkup,
-    MessageEntity,
     Message,
-    ForceReply
+    MessageEntity,
+    ReplyKeyboardMarkup,
+    ReplyKeyboardRemove,
+    Response
 )
 from .base import TelegramMethod
-
-if TYPE_CHECKING:
-    from cleangram.client import BaseBot
 
 
 @dataclass
@@ -65,6 +62,3 @@ class SendMessage(TelegramMethod, response=Response[Message]):
     """Additional interface options. A JSON-serialized object for
     an inline keyboard, custom reply keyboard, instructions to
     remove reply keyboard or to force a reply from the user."""
-
-    def preset(self, bot: BaseBot):
-        self.parse_mode = self.parse_mode or bot.parse_mode

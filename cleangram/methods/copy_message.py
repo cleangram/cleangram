@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List, Union
+from typing import List, Optional, Union
 
-from cleangram.types import (
-    Response,
-    ReplyKeyboardRemove,
+from ..types import (
+    ForceReply,
     InlineKeyboardMarkup,
-    ReplyKeyboardMarkup,
     MessageEntity,
     MessageId,
-    ForceReply
+    ReplyKeyboardMarkup,
+    ReplyKeyboardRemove,
+    Response
 )
 from .base import TelegramMethod
 

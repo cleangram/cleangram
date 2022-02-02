@@ -4,8 +4,8 @@ from dataclasses import dataclass
 from typing import List
 
 from .encrypted_credentials import EncryptedCredentials
-from .base import TelegramType
 from .encrypted_passport_element import EncryptedPassportElement
+from .base import TelegramType
 
 
 @dataclass

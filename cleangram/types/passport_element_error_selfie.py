@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, InitVar, field
+from dataclasses import dataclass, field, InitVar
 
 
 from .passport_element_error import PassportElementError

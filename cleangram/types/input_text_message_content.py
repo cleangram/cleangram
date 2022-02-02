@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List
+from typing import List, Optional
 
 from .input_message_content import InputMessageContent
 from .message_entity import MessageEntity

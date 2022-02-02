@@ -3,10 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
-from cleangram.types import (
+from ..types import (
+    InputFile,
     MaskPosition,
-    Response,
-    InputFile
+    Response
 )
 from .base import TelegramMethod
 
@@ -15,11 +15,11 @@ from .base import TelegramMethod
 class AddStickerToSet(TelegramMethod, response=Response[bool]):
     """
     Use this method to add a new sticker to a set created by the
-    bot. You must use exactly one of the fields png_sticker or
-    tgs_sticker. Animated stickers can be added to animated
-    sticker sets and only to them. Animated sticker sets can
-    have up to 50 stickers. Static sticker sets can have up to
-    120 stickers. Returns True on success.
+    bot. You must use exactly one of the fields png_sticker,
+    tgs_sticker, or webm_sticker. Animated stickers can be added
+    to animated sticker sets and only to them. Animated sticker
+    sets can have up to 50 stickers. Static sticker sets can
+    have up to 120 stickers. Returns True on success.
 
     Reference: https://core.telegram.org/bots/api#addstickertoset
     """
@@ -45,7 +45,12 @@ class AddStickerToSet(TelegramMethod, response=Response[bool]):
     tgs_sticker: Optional[InputFile] = field(default=None)
     """TGS animation with the sticker, uploaded using
     multipart/form-data. See
-    https://core.telegram.org/animated_stickers#technical-
+    https://core.telegram.org/stickers#animated-sticker-
+    requirements for technical requirements"""
+
+    webm_sticker: Optional[InputFile] = field(default=None)
+    """WEBM video with the sticker, uploaded using multipart/form-
+    data. See https://core.telegram.org/stickers#video-sticker-
     requirements for technical requirements"""
 
     mask_position: Optional[MaskPosition] = field(default=None)
