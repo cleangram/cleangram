@@ -4,10 +4,10 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from .chat_location import ChatLocation
-from .chat_photo import ChatPhoto
-from .base import TelegramType
 from .chat_permissions import ChatPermissions
+from .chat_photo import ChatPhoto
 from .message import Message
+from .base import TelegramType
 
 
 @dataclass

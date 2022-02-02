@@ -3,10 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from cleangram.types import (
+from ..types import (
     InlineKeyboardMarkup,
-    Response,
-    Message
+    Message,
+    Response
 )
 from .base import TelegramMethod
 

@@ -3,10 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
-from cleangram.types import (
+from ..types import (
+    InputFile,
     MaskPosition,
-    Response,
-    InputFile
+    Response
 )
 from .base import TelegramMethod
 
@@ -16,8 +16,8 @@ class CreateNewStickerSet(TelegramMethod, response=Response[bool]):
     """
     Use this method to create a new sticker set owned by a user.
     The bot will be able to edit the sticker set thus created.
-    You must use exactly one of the fields png_sticker or
-    tgs_sticker. Returns True on success.
+    You must use exactly one of the fields png_sticker,
+    tgs_sticker, or webm_sticker. Returns True on success.
 
     Reference: https://core.telegram.org/bots/api#createnewstickerset
     """
@@ -51,7 +51,12 @@ class CreateNewStickerSet(TelegramMethod, response=Response[bool]):
     tgs_sticker: Optional[InputFile] = field(default=None)
     """TGS animation with the sticker, uploaded using
     multipart/form-data. See
-    https://core.telegram.org/animated_stickers#technical-
+    https://core.telegram.org/stickers#animated-sticker-
+    requirements for technical requirements"""
+
+    webm_sticker: Optional[InputFile] = field(default=None)
+    """WEBM video with the sticker, uploaded using multipart/form-
+    data. See https://core.telegram.org/stickers#video-sticker-
     requirements for technical requirements"""
 
     contains_masks: Optional[bool] = field(default=None)

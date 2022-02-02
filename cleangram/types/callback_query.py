@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
+from .message import Message
 from .base import TelegramType
 from .user import User
-from .message import Message
 
 
 @dataclass

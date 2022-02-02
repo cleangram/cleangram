@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Union
 
-from cleangram.types import (
-    Response,
-    ChatMember
+from ..types import (
+    ChatMember,
+    Response
 )
 from .base import TelegramMethod
 

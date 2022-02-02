@@ -1,4 +1,4 @@
-from ._version import __version__
+from ._version import __version__, __bot_api__
 from . import client, application, types, methods
 from .client import *
 from .application import *

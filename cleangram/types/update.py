@@ -3,17 +3,17 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
+from .callback_query import CallbackQuery
+from .chat_join_request import ChatJoinRequest
+from .chat_member_updated import ChatMemberUpdated
 from .chosen_inline_result import ChosenInlineResult
-from .shipping_query import ShippingQuery
 from .inline_query import InlineQuery
-from .pre_checkout_query import PreCheckoutQuery
+from .message import Message
 from .poll import Poll
 from .poll_answer import PollAnswer
-from .chat_join_request import ChatJoinRequest
+from .pre_checkout_query import PreCheckoutQuery
+from .shipping_query import ShippingQuery
 from .base import TelegramType
-from .callback_query import CallbackQuery
-from .chat_member_updated import ChatMemberUpdated
-from .message import Message
 
 
 @dataclass

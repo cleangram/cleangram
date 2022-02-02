@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
-from cleangram.types import (
-    Response,
-    ChatPermissions
+from ..types import (
+    ChatPermissions,
+    Response
 )
 from .base import TelegramMethod
 

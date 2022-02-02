@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, InitVar, field
+from dataclasses import dataclass, field, InitVar
 from typing import Optional
 
 from .inline_keyboard_markup import InlineKeyboardMarkup
-from .input_message_content import InputMessageContent
 from .inline_query_result import InlineQueryResult
+from .input_message_content import InputMessageContent
 
 
 @dataclass

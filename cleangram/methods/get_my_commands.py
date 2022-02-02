@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List
+from typing import List, Optional
 
-from cleangram.types import (
+from ..types import (
+    BotCommand,
     BotCommandScope,
-    Response,
-    BotCommand
+    Response
 )
 from .base import TelegramMethod
 

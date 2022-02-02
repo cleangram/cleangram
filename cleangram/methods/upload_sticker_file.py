@@ -3,10 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 
-from cleangram.types import (
-    Response,
+from ..types import (
+    File,
     InputFile,
-    File
+    Response
 )
 from .base import TelegramMethod
 

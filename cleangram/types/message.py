@@ -1,36 +1,36 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List
+from typing import List, Optional
 
-from .chat import Chat
-from .document import Document
-from .venue import Venue
-from .contact import Contact
-from .location import Location
-from .video_note import VideoNote
-from .dice import Dice
-from .audio import Audio
-from .voice_chat_started import VoiceChatStarted
-from .voice import Voice
-from .invoice import Invoice
-from .voice_chat_ended import VoiceChatEnded
-from .user import User
 from .animation import Animation
-from .sticker import Sticker
-from .message_entity import MessageEntity
-from .message_auto_delete_timer_changed import MessageAutoDeleteTimerChanged
-from .video import Video
-from .voice_chat_participants_invited import VoiceChatParticipantsInvited
-from .proximity_alert_triggered import ProximityAlertTriggered
-from .photo_size import PhotoSize
-from .passport_data import PassportData
-from .voice_chat_scheduled import VoiceChatScheduled
-from .base import TelegramType
-from .poll import Poll
-from .inline_keyboard_markup import InlineKeyboardMarkup
+from .audio import Audio
+from .chat import Chat
+from .contact import Contact
+from .dice import Dice
+from .document import Document
 from .game import Game
+from .inline_keyboard_markup import InlineKeyboardMarkup
+from .invoice import Invoice
+from .location import Location
+from .message_auto_delete_timer_changed import MessageAutoDeleteTimerChanged
+from .message_entity import MessageEntity
+from .passport_data import PassportData
+from .photo_size import PhotoSize
+from .poll import Poll
+from .proximity_alert_triggered import ProximityAlertTriggered
+from .sticker import Sticker
 from .successful_payment import SuccessfulPayment
+from .base import TelegramType
+from .user import User
+from .venue import Venue
+from .video import Video
+from .video_note import VideoNote
+from .voice import Voice
+from .voice_chat_ended import VoiceChatEnded
+from .voice_chat_participants_invited import VoiceChatParticipantsInvited
+from .voice_chat_scheduled import VoiceChatScheduled
+from .voice_chat_started import VoiceChatStarted
 
 
 @dataclass

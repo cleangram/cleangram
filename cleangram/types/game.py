@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List
+from typing import List, Optional
 
-from .base import TelegramType
-from .photo_size import PhotoSize
-from .message_entity import MessageEntity
 from .animation import Animation
+from .message_entity import MessageEntity
+from .photo_size import PhotoSize
+from .base import TelegramType
 
 
 @dataclass

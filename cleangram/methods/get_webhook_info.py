@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 
-from cleangram.types import (
+from ..types import (
     Response,
     WebhookInfo
 )

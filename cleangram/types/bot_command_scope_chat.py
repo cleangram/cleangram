@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, InitVar, field
+from dataclasses import dataclass, field, InitVar
 from typing import Union
 
 from .bot_command_scope import BotCommandScope

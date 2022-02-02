@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List
+from typing import List, Optional
 
-from .labeled_price import LabeledPrice
 from .input_message_content import InputMessageContent
+from .labeled_price import LabeledPrice
 
 
 @dataclass

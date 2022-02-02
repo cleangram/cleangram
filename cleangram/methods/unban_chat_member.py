@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
-from cleangram.types import (
+from ..types import (
     Response
 )
 from .base import TelegramMethod
@@ -27,7 +27,8 @@ class UnbanChatMember(TelegramMethod, response=Response[bool]):
 
     chat_id: Union[str, int]
     """Unique identifier for the target group or username of the
-    target supergroup or channel (in the format @username)"""
+    target supergroup or channel (in the format
+    @channelusername)"""
 
     user_id: int
     """Unique identifier of the target user"""
