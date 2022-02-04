@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List, Optional, Union
+from typing import List, Optional, Union, TYPE_CHECKING
 
 from ..types import (
     ForceReply,
@@ -14,6 +14,9 @@ from ..types import (
     Response
 )
 from .base import TelegramMethod
+
+if TYPE_CHECKING:
+    from cleangram.client import BaseBot
 
 
 @dataclass
@@ -69,3 +72,7 @@ class SendPhoto(TelegramMethod, response=Response[Message]):
     """Additional interface options. A JSON-serialized object for
     an inline keyboard, custom reply keyboard, instructions to
     remove reply keyboard or to force a reply from the user."""
+
+    def preset(self, bot: BaseBot):
+        if isinstance(self.photo, InputFile):
+            self.__files__, self.photo = {"photo": self.photo}, None

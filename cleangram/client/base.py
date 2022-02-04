@@ -1,3 +1,5 @@
+from contextlib import ExitStack
+
 import abc
 
 from dataclass_factory import Factory, Schema
@@ -35,11 +37,13 @@ class BaseBot(abc.ABC):
     async def _request(self, call: TelegramMethod, timeout: int) -> Response:
         call.preset(self)
         data = self.__factory.dump(call)
-        response = await self.__http.post(
-            url=self._base_url(call),
-            data=data,
-            timeout=timeout + .1
-        )
+        with ExitStack() as stack:
+            response = await self.__http.post(
+                url=self._base_url(call),
+                data=data,
+                files={key: stack.enter_context(open(file.file, "rb")) for key, file in call.__files__.items()},
+                timeout=timeout + .1
+            )
         return self.__factory.load(
             data=json.loads(response.content),
             class_=call.response
