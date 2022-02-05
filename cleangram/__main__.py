@@ -1,3 +1,3 @@
-from .cli import get_info
+from .cli import print_info
 
-get_info()
+print_info()

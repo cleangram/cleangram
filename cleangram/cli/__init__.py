@@ -1,5 +1,5 @@
-from .info import get_info
+from .info import print_info
 
 __all__ = [
-    "get_info"
+    "print_info"
 ]
