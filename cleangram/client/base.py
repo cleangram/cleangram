@@ -1,14 +1,17 @@
-from contextlib import ExitStack
-
+import contextlib
 import abc
 
+from typing import TypeVar
+
 from dataclass_factory import Factory, Schema
-from httpx import AsyncClient
 import json
 
+from cleangram.http.httpx_ import HttpX
 from cleangram.methods import TelegramMethod
 from cleangram.types import Response
 from cleangram.env import env
+
+T = TypeVar("T")
 
 
 class BaseBot(abc.ABC):
@@ -21,7 +24,7 @@ class BaseBot(abc.ABC):
     ) -> None:
         self.__token = token
         self.__endpoint = endpoint
-        self.__http = AsyncClient()
+        self.__http = HttpX()
         self.__factory = Factory(default_schema=Schema(omit_default=True))
         self.parse_mode = parse_mode
 
@@ -31,26 +34,18 @@ class BaseBot(abc.ABC):
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         return await self.__http.__aexit__(exc_type, exc_val, exc_tb)
 
-    async def __call__(self, call: TelegramMethod, timeout: int = 10):
-        return (await self._request(call, timeout)).result
+    async def cleanup(self):
+        await self.__http.close()
 
-    async def _request(self, call: TelegramMethod, timeout: int) -> Response:
-        call.preset(self)
+    async def __call__(self, call: TelegramMethod, timeout: int = 10) -> T:
+        files = call.preset(self) or {}
         data = self.__factory.dump(call)
-        with ExitStack() as stack:
-            response = await self.__http.post(
-                url=self._base_url(call),
-                data=data,
-                files={key: stack.enter_context(open(file.file, "rb")) for key, file in call.__files__.items()},
-                timeout=timeout + .1
-            )
-        return self.__factory.load(
-            data=json.loads(response.content),
-            class_=call.response
-        )
+        data = {k: json.dumps(v) if isinstance(v, (dict, list)) else v for k, v in data.items()}
+        url = self._base_url(call)
+        with contextlib.ExitStack() as stack:
+            files = {n: stack.enter_context(f) for n, f in files.items()}
+            http_resp = await self.__http.post(url, data, files, timeout)
+        return (self.__factory.load(json.loads(http_resp), call.__response__)).result
 
     def _base_url(self, call: TelegramMethod) -> str:
-        return f"{self.__endpoint}/bot{self.__token}/{call.path}"
-
-    async def cleanup(self):
-        await self.__http.aclose()
+        return f"{self.__endpoint}/bot{self.__token}/{call.__class__.__name__}"

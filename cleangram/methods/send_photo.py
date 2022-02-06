@@ -75,4 +75,5 @@ class SendPhoto(TelegramMethod, response=Response[Message]):
 
     def preset(self, bot: BaseBot):
         if isinstance(self.photo, InputFile):
-            self.__files__, self.photo = {"photo": self.photo}, None
+            self.photo, files = "", {"photo": self.photo}
+            return files
