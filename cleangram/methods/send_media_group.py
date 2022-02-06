@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import secrets
+
 from dataclasses import dataclass, field
-from typing import List, Optional, Union
+from typing import List, Optional, Union, TYPE_CHECKING, Dict
 
 from ..types import (
     InputMediaAudio,
@@ -9,9 +11,13 @@ from ..types import (
     InputMediaPhoto,
     InputMediaVideo,
     Message,
-    Response
+    Response,
+    InputFile
 )
 from .base import TelegramMethod
+
+if TYPE_CHECKING:
+    from cleangram.client import BaseBot
 
 
 @dataclass
@@ -47,3 +53,12 @@ class SendMediaGroup(TelegramMethod, response=Response[List[Message]]):
     allow_sending_without_reply: Optional[bool] = field(default=None)
     """Pass True, if the message should be sent even if the
     specified replied-to message is not found"""
+
+    def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
+        files = {}
+        for media in self.media:
+            if isinstance(media.media, InputFile):
+                attach = secrets.token_urlsafe(6)
+                files[attach] = media.media
+                media.media = f"attach://{attach}"
+        return files
