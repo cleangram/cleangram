@@ -56,5 +56,5 @@ class InputMediaAudio(InputMedia):
     title: Optional[str] = field(default=None)
     """Optional. Title of the audio"""
 
-    type_: str = field(default='audio')
+    type_: str = field(default="audio")
     """Type of the result, must be audio"""

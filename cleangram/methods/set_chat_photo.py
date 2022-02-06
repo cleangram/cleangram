@@ -3,10 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Union
 
-from ..types import (
-    InputFile,
-    Response
-)
+from ..types import InputFile, Response
 from .base import TelegramMethod
 
 

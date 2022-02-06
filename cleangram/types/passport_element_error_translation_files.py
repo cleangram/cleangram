@@ -28,5 +28,5 @@ class PassportElementErrorTranslationFiles(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default='translation_files')
+    source: str = field(default="translation_files")
     """Error source, must be translation_files"""

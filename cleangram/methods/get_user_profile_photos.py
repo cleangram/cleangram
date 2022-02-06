@@ -3,10 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from ..types import (
-    Response,
-    UserProfilePhotos
-)
+from ..types import Response, UserProfilePhotos
 from .base import TelegramMethod
 
 

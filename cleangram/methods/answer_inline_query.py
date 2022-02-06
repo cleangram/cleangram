@@ -3,10 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 
-from ..types import (
-    InlineQueryResult,
-    Response
-)
+from ..types import InlineQueryResult, Response
 from .base import TelegramMethod
 
 

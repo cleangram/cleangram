@@ -52,5 +52,5 @@ class InputMediaDocument(InputMedia):
     detection for files uploaded using multipart/form-data.
     Always True, if the document is sent as part of an album."""
 
-    type_: str = field(default='document')
+    type_: str = field(default="document")
     """Type of the result, must be document"""

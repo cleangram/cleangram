@@ -64,5 +64,5 @@ class InlineQueryResultVenue(InlineQueryResult):
     thumb_height: Optional[int] = field(default=None)
     """Optional. Thumbnail height"""
 
-    type_: str = field(default='venue')
+    type_: str = field(default="venue")
     """Type of the result, must be venue"""

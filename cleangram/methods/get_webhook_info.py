@@ -3,10 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 
-from ..types import (
-    Response,
-    WebhookInfo
-)
+from ..types import Response, WebhookInfo
 from .base import TelegramMethod
 
 

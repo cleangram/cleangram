@@ -3,11 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 
-from ..types import (
-    BotCommand,
-    BotCommandScope,
-    Response
-)
+from ..types import BotCommand, BotCommandScope, Response
 from .base import TelegramMethod
 
 

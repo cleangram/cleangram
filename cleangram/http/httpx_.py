@@ -14,7 +14,9 @@ class HttpX(Http):
         return await self.__client.__aexit__(exc_type, exc_val, exc_tb)
 
     async def post(self, url: str, data: dict, files: dict, timeout: float) -> bytes:
-        return (await self.__client.post(url, data=data, files=files, timeout=timeout)).content
+        return (
+            await self.__client.post(url, data=data, files=files, timeout=timeout)
+        ).content
 
     async def close(self):
         await self.__client.aclose()

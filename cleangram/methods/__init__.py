@@ -166,5 +166,5 @@ __all__ = [
     "UnbanChatSenderChat",
     "UnpinAllChatMessages",
     "UnpinChatMessage",
-    "UploadStickerFile"
+    "UploadStickerFile",
 ]

@@ -3,10 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List
 
-from ..types import (
-    PassportElementError,
-    Response
-)
+from ..types import PassportElementError, Response
 from .base import TelegramMethod
 
 

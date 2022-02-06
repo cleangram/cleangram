@@ -60,5 +60,5 @@ class InlineQueryResultPhoto(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     photo"""
 
-    type_: str = field(default='photo')
+    type_: str = field(default="photo")
     """Type of the result, must be photo"""

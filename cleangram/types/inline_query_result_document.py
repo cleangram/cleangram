@@ -64,5 +64,5 @@ class InlineQueryResultDocument(InlineQueryResult):
     thumb_height: Optional[int] = field(default=None)
     """Optional. Thumbnail height"""
 
-    type_: str = field(default='document')
+    type_: str = field(default="document")
     """Type of the result, must be document"""

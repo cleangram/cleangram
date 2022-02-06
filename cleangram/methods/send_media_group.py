@@ -12,7 +12,7 @@ from ..types import (
     InputMediaVideo,
     Message,
     Response,
-    InputFile
+    InputFile,
 )
 from .base import TelegramMethod
 
@@ -35,7 +35,9 @@ class SendMediaGroup(TelegramMethod, response=Response[List[Message]]):
     """Unique identifier for the target chat or username of the
     target channel (in the format @channelusername)"""
 
-    media: List[Union[InputMediaAudio, InputMediaDocument, InputMediaPhoto, InputMediaVideo]]
+    media: List[
+        Union[InputMediaAudio, InputMediaDocument, InputMediaPhoto, InputMediaVideo]
+    ]
     """A JSON-serialized array describing messages to be sent, must
     include 2-10 items"""
 

@@ -20,7 +20,7 @@ class BaseBot(abc.ABC):
         token: str,
         endpoint: str = env.TELEGRAM_API_ENDPOINT,
         parse_mode: str = None,
-        disable_web_page_preview: bool = None
+        disable_web_page_preview: bool = None,
     ) -> None:
         self.__token = token
         self.__endpoint = endpoint
@@ -40,7 +40,10 @@ class BaseBot(abc.ABC):
     async def __call__(self, call: TelegramMethod, timeout: int = 10) -> T:
         files = call.preset(self) or {}
         data = self.__factory.dump(call)
-        data = {k: json.dumps(v) if isinstance(v, (dict, list)) else v for k, v in data.items()}
+        data = {
+            k: json.dumps(v) if isinstance(v, (dict, list)) else v
+            for k, v in data.items()
+        }
         url = self._base_url(call)
         with contextlib.ExitStack() as stack:
             files = {n: stack.enter_context(f) for n, f in files.items()}

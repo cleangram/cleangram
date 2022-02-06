@@ -28,4 +28,3 @@ class App(Router):
         st = Starlette()
 
         return st
-

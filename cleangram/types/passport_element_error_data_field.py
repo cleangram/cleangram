@@ -30,5 +30,5 @@ class PassportElementErrorDataField(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default='data')
+    source: str = field(default="data")
     """Error source, must be data"""

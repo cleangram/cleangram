@@ -35,7 +35,7 @@ from ..types import (
     Update,
     User,
     UserProfilePhotos,
-    WebhookInfo
+    WebhookInfo,
 )
 from ..methods import (
     AddStickerToSet,
@@ -119,7 +119,7 @@ from ..methods import (
     UnbanChatSenderChat,
     UnpinAllChatMessages,
     UnpinChatMessage,
-    UploadStickerFile
+    UploadStickerFile,
 )
 from .base import BaseBot
 
@@ -134,7 +134,7 @@ class Bot(BaseBot):
         offset: Optional[int] = None,
         limit: Optional[int] = None,
         timeout: Optional[int] = None,
-        allowed_updates: Optional[List[str]] = None
+        allowed_updates: Optional[List[str]] = None,
     ) -> List[Update]:
         """
         Use this method to receive incoming updates using long
@@ -168,12 +168,14 @@ class Bot(BaseBot):
         short period of time.
         :returns: List[Update]
         """
-        return await self(GetUpdates(
-            offset=offset,
-            limit=limit,
-            timeout=timeout,
-            allowed_updates=allowed_updates
-        ))
+        return await self(
+            GetUpdates(
+                offset=offset,
+                limit=limit,
+                timeout=timeout,
+                allowed_updates=allowed_updates,
+            )
+        )
 
     async def set_webhook(
         self,
@@ -182,7 +184,7 @@ class Bot(BaseBot):
         ip_address: Optional[str] = None,
         max_connections: Optional[int] = None,
         allowed_updates: Optional[List[str]] = None,
-        drop_pending_updates: Optional[bool] = None
+        drop_pending_updates: Optional[bool] = None,
     ) -> bool:
         """
         Use this method to specify a url and receive incoming
@@ -218,19 +220,18 @@ class Bot(BaseBot):
         :param drop_pending_updates: Pass True to drop all pending updates
         :returns: bool
         """
-        return await self(SetWebhook(
-            url=url,
-            certificate=certificate,
-            ip_address=ip_address,
-            max_connections=max_connections,
-            allowed_updates=allowed_updates,
-            drop_pending_updates=drop_pending_updates
-        ))
+        return await self(
+            SetWebhook(
+                url=url,
+                certificate=certificate,
+                ip_address=ip_address,
+                max_connections=max_connections,
+                allowed_updates=allowed_updates,
+                drop_pending_updates=drop_pending_updates,
+            )
+        )
 
-    async def delete_webhook(
-        self,
-        drop_pending_updates: Optional[bool] = None
-    ) -> bool:
+    async def delete_webhook(self, drop_pending_updates: Optional[bool] = None) -> bool:
         """
         Use this method to remove webhook integration if you decide
         to switch back to getUpdates. Returns True on success.
@@ -240,9 +241,7 @@ class Bot(BaseBot):
         :param drop_pending_updates: Pass True to drop all pending updates
         :returns: bool
         """
-        return await self(DeleteWebhook(
-            drop_pending_updates=drop_pending_updates
-        ))
+        return await self(DeleteWebhook(drop_pending_updates=drop_pending_updates))
 
     async def get_webhook_info(
         self,
@@ -319,7 +318,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send text messages. On success, the sent
@@ -348,18 +354,20 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendMessage(
-            chat_id=chat_id,
-            text=text,
-            parse_mode=parse_mode,
-            entities=entities,
-            disable_web_page_preview=disable_web_page_preview,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendMessage(
+                chat_id=chat_id,
+                text=text,
+                parse_mode=parse_mode,
+                entities=entities,
+                disable_web_page_preview=disable_web_page_preview,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def forward_message(
         self,
@@ -367,7 +375,7 @@ class Bot(BaseBot):
         from_chat_id: Union[str, int],
         message_id: int,
         disable_notification: Optional[bool] = None,
-        protect_content: Optional[bool] = None
+        protect_content: Optional[bool] = None,
     ) -> Message:
         """
         Use this method to forward messages of any kind. Service
@@ -388,13 +396,15 @@ class Bot(BaseBot):
         forwarding and saving
         :returns: Message
         """
-        return await self(ForwardMessage(
-            chat_id=chat_id,
-            from_chat_id=from_chat_id,
-            message_id=message_id,
-            disable_notification=disable_notification,
-            protect_content=protect_content
-        ))
+        return await self(
+            ForwardMessage(
+                chat_id=chat_id,
+                from_chat_id=from_chat_id,
+                message_id=message_id,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+            )
+        )
 
     async def copy_message(
         self,
@@ -408,7 +418,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> MessageId:
         """
         Use this method to copy messages of any kind. Service
@@ -444,19 +461,21 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: MessageId
         """
-        return await self(CopyMessage(
-            chat_id=chat_id,
-            from_chat_id=from_chat_id,
-            message_id=message_id,
-            caption=caption,
-            parse_mode=parse_mode,
-            caption_entities=caption_entities,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            CopyMessage(
+                chat_id=chat_id,
+                from_chat_id=from_chat_id,
+                message_id=message_id,
+                caption=caption,
+                parse_mode=parse_mode,
+                caption_entities=caption_entities,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_photo(
         self,
@@ -469,7 +488,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send photos. On success, the sent Message
@@ -504,18 +530,20 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendPhoto(
-            chat_id=chat_id,
-            photo=photo,
-            caption=caption,
-            parse_mode=parse_mode,
-            caption_entities=caption_entities,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendPhoto(
+                chat_id=chat_id,
+                photo=photo,
+                caption=caption,
+                parse_mode=parse_mode,
+                caption_entities=caption_entities,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_audio(
         self,
@@ -532,7 +560,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send audio files, if you want Telegram
@@ -579,22 +614,24 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendAudio(
-            chat_id=chat_id,
-            audio=audio,
-            caption=caption,
-            parse_mode=parse_mode,
-            caption_entities=caption_entities,
-            duration=duration,
-            performer=performer,
-            title=title,
-            thumb=thumb,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendAudio(
+                chat_id=chat_id,
+                audio=audio,
+                caption=caption,
+                parse_mode=parse_mode,
+                caption_entities=caption_entities,
+                duration=duration,
+                performer=performer,
+                title=title,
+                thumb=thumb,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_document(
         self,
@@ -609,7 +646,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send general files. On success, the sent
@@ -655,20 +699,22 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendDocument(
-            chat_id=chat_id,
-            document=document,
-            thumb=thumb,
-            caption=caption,
-            parse_mode=parse_mode,
-            caption_entities=caption_entities,
-            disable_content_type_detection=disable_content_type_detection,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendDocument(
+                chat_id=chat_id,
+                document=document,
+                thumb=thumb,
+                caption=caption,
+                parse_mode=parse_mode,
+                caption_entities=caption_entities,
+                disable_content_type_detection=disable_content_type_detection,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_video(
         self,
@@ -686,7 +732,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send video files, Telegram clients
@@ -735,23 +788,25 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendVideo(
-            chat_id=chat_id,
-            video=video,
-            duration=duration,
-            width=width,
-            height=height,
-            thumb=thumb,
-            caption=caption,
-            parse_mode=parse_mode,
-            caption_entities=caption_entities,
-            supports_streaming=supports_streaming,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendVideo(
+                chat_id=chat_id,
+                video=video,
+                duration=duration,
+                width=width,
+                height=height,
+                thumb=thumb,
+                caption=caption,
+                parse_mode=parse_mode,
+                caption_entities=caption_entities,
+                supports_streaming=supports_streaming,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_animation(
         self,
@@ -768,7 +823,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send animation files (GIF or H.264/MPEG-4
@@ -815,22 +877,24 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendAnimation(
-            chat_id=chat_id,
-            animation=animation,
-            duration=duration,
-            width=width,
-            height=height,
-            thumb=thumb,
-            caption=caption,
-            parse_mode=parse_mode,
-            caption_entities=caption_entities,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendAnimation(
+                chat_id=chat_id,
+                animation=animation,
+                duration=duration,
+                width=width,
+                height=height,
+                thumb=thumb,
+                caption=caption,
+                parse_mode=parse_mode,
+                caption_entities=caption_entities,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_voice(
         self,
@@ -844,7 +908,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send audio files, if you want Telegram
@@ -883,19 +954,21 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendVoice(
-            chat_id=chat_id,
-            voice=voice,
-            caption=caption,
-            parse_mode=parse_mode,
-            caption_entities=caption_entities,
-            duration=duration,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendVoice(
+                chat_id=chat_id,
+                voice=voice,
+                caption=caption,
+                parse_mode=parse_mode,
+                caption_entities=caption_entities,
+                duration=duration,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_video_note(
         self,
@@ -908,7 +981,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         As of v.4.0, Telegram clients support rounded square mp4
@@ -947,27 +1027,31 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendVideoNote(
-            chat_id=chat_id,
-            video_note=video_note,
-            duration=duration,
-            length=length,
-            thumb=thumb,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendVideoNote(
+                chat_id=chat_id,
+                video_note=video_note,
+                duration=duration,
+                length=length,
+                thumb=thumb,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_media_group(
         self,
         chat_id: Union[str, int],  # Chat id
-        media: List[Union[InputMediaAudio, InputMediaDocument, InputMediaPhoto, InputMediaVideo]],
+        media: List[
+            Union[InputMediaAudio, InputMediaDocument, InputMediaPhoto, InputMediaVideo]
+        ],
         disable_notification: Optional[bool] = None,
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
-        allow_sending_without_reply: Optional[bool] = None
+        allow_sending_without_reply: Optional[bool] = None,
     ) -> List[Message]:
         """
         Use this method to send a group of photos, videos, documents
@@ -993,14 +1077,16 @@ class Bot(BaseBot):
         specified replied-to message is not found
         :returns: List[Message]
         """
-        return await self(SendMediaGroup(
-            chat_id=chat_id,
-            media=media,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply
-        ))
+        return await self(
+            SendMediaGroup(
+                chat_id=chat_id,
+                media=media,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+            )
+        )
 
     async def send_location(
         self,
@@ -1015,7 +1101,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send point on the map. On success, the
@@ -1048,20 +1141,22 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendLocation(
-            chat_id=chat_id,
-            latitude=latitude,
-            longitude=longitude,
-            horizontal_accuracy=horizontal_accuracy,
-            live_period=live_period,
-            heading=heading,
-            proximity_alert_radius=proximity_alert_radius,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendLocation(
+                chat_id=chat_id,
+                latitude=latitude,
+                longitude=longitude,
+                horizontal_accuracy=horizontal_accuracy,
+                live_period=live_period,
+                heading=heading,
+                proximity_alert_radius=proximity_alert_radius,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def edit_message_live_location(
         self,
@@ -1073,7 +1168,7 @@ class Bot(BaseBot):
         horizontal_accuracy: Optional[float] = None,
         heading: Optional[int] = None,
         proximity_alert_radius: Optional[int] = None,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Union[Message, bool]:
         """
         Use this method to edit live location messages. A location
@@ -1103,24 +1198,26 @@ class Bot(BaseBot):
         :param reply_markup: A JSON-serialized object for a new inline keyboard.
         :returns: Union[Message, bool]
         """
-        return await self(EditMessageLiveLocation(
-            latitude=latitude,
-            longitude=longitude,
-            chat_id=chat_id,
-            message_id=message_id,
-            inline_message_id=inline_message_id,
-            horizontal_accuracy=horizontal_accuracy,
-            heading=heading,
-            proximity_alert_radius=proximity_alert_radius,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            EditMessageLiveLocation(
+                latitude=latitude,
+                longitude=longitude,
+                chat_id=chat_id,
+                message_id=message_id,
+                inline_message_id=inline_message_id,
+                horizontal_accuracy=horizontal_accuracy,
+                heading=heading,
+                proximity_alert_radius=proximity_alert_radius,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def stop_message_live_location(
         self,
         chat_id: Optional[Union[str, int]] = None,
         message_id: Optional[int] = None,
         inline_message_id: Optional[str] = None,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Union[Message, bool]:
         """
         Use this method to stop updating a live location message
@@ -1140,12 +1237,14 @@ class Bot(BaseBot):
         :param reply_markup: A JSON-serialized object for a new inline keyboard.
         :returns: Union[Message, bool]
         """
-        return await self(StopMessageLiveLocation(
-            chat_id=chat_id,
-            message_id=message_id,
-            inline_message_id=inline_message_id,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            StopMessageLiveLocation(
+                chat_id=chat_id,
+                message_id=message_id,
+                inline_message_id=inline_message_id,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_venue(
         self,
@@ -1162,7 +1261,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send information about a venue. On
@@ -1194,22 +1300,24 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendVenue(
-            chat_id=chat_id,
-            latitude=latitude,
-            longitude=longitude,
-            title=title,
-            address=address,
-            foursquare_id=foursquare_id,
-            foursquare_type=foursquare_type,
-            google_place_id=google_place_id,
-            google_place_type=google_place_type,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendVenue(
+                chat_id=chat_id,
+                latitude=latitude,
+                longitude=longitude,
+                title=title,
+                address=address,
+                foursquare_id=foursquare_id,
+                foursquare_type=foursquare_type,
+                google_place_id=google_place_id,
+                google_place_type=google_place_type,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_contact(
         self,
@@ -1222,7 +1330,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send phone contacts. On success, the sent
@@ -1249,18 +1364,20 @@ class Bot(BaseBot):
         remove keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendContact(
-            chat_id=chat_id,
-            phone_number=phone_number,
-            first_name=first_name,
-            last_name=last_name,
-            vcard=vcard,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendContact(
+                chat_id=chat_id,
+                phone_number=phone_number,
+                first_name=first_name,
+                last_name=last_name,
+                vcard=vcard,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_poll(
         self,
@@ -1281,7 +1398,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send a native poll. On success, the sent
@@ -1328,26 +1452,28 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendPoll(
-            chat_id=chat_id,
-            question=question,
-            options=options,
-            is_anonymous=is_anonymous,
-            type_=type_,
-            allows_multiple_answers=allows_multiple_answers,
-            correct_option_id=correct_option_id,
-            explanation=explanation,
-            explanation_parse_mode=explanation_parse_mode,
-            explanation_entities=explanation_entities,
-            open_period=open_period,
-            close_date=close_date,
-            is_closed=is_closed,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendPoll(
+                chat_id=chat_id,
+                question=question,
+                options=options,
+                is_anonymous=is_anonymous,
+                type_=type_,
+                allows_multiple_answers=allows_multiple_answers,
+                correct_option_id=correct_option_id,
+                explanation=explanation,
+                explanation_parse_mode=explanation_parse_mode,
+                explanation_entities=explanation_entities,
+                open_period=open_period,
+                close_date=close_date,
+                is_closed=is_closed,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def send_dice(
         self,
@@ -1357,7 +1483,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send an animated emoji that will display
@@ -1382,21 +1515,19 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendDice(
-            chat_id=chat_id,
-            emoji=emoji,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendDice(
+                chat_id=chat_id,
+                emoji=emoji,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
-    async def send_chat_action(
-        self,
-        chat_id: Union[str, int],
-        action: str
-    ) -> bool:
+    async def send_chat_action(self, chat_id: Union[str, int], action: str) -> bool:
         """
         Use this method when you need to tell the user that
         something is happening on the bot's side. The status is set
@@ -1417,16 +1548,10 @@ class Bot(BaseBot):
         or upload_video_note for video notes.
         :returns: bool
         """
-        return await self(SendChatAction(
-            chat_id=chat_id,
-            action=action
-        ))
+        return await self(SendChatAction(chat_id=chat_id, action=action))
 
     async def get_user_profile_photos(
-        self,
-        user_id: int,
-        offset: Optional[int] = None,
-        limit: Optional[int] = None
+        self, user_id: int, offset: Optional[int] = None, limit: Optional[int] = None
     ) -> UserProfilePhotos:
         """
         Use this method to get a list of profile pictures for a
@@ -1441,16 +1566,11 @@ class Bot(BaseBot):
         1-100 are accepted. Defaults to 100.
         :returns: UserProfilePhotos
         """
-        return await self(GetUserProfilePhotos(
-            user_id=user_id,
-            offset=offset,
-            limit=limit
-        ))
+        return await self(
+            GetUserProfilePhotos(user_id=user_id, offset=offset, limit=limit)
+        )
 
-    async def get_file(
-        self,
-        file_id: str
-    ) -> File:
+    async def get_file(self, file_id: str) -> File:
         """
         Use this method to get basic info about a file and prepare
         it for downloading. For the moment, bots can download files
@@ -1467,16 +1587,14 @@ class Bot(BaseBot):
         :param file_id: File identifier to get info about
         :returns: File
         """
-        return await self(GetFile(
-            file_id=file_id
-        ))
+        return await self(GetFile(file_id=file_id))
 
     async def ban_chat_member(
         self,
         chat_id: Union[str, int],
         user_id: int,
         until_date: Optional[int] = None,
-        revoke_messages: Optional[bool] = None
+        revoke_messages: Optional[bool] = None,
     ) -> bool:
         """
         Use this method to ban a user in a group, a supergroup or a
@@ -1503,18 +1621,20 @@ class Bot(BaseBot):
         removed. Always True for supergroups and channels.
         :returns: bool
         """
-        return await self(BanChatMember(
-            chat_id=chat_id,
-            user_id=user_id,
-            until_date=until_date,
-            revoke_messages=revoke_messages
-        ))
+        return await self(
+            BanChatMember(
+                chat_id=chat_id,
+                user_id=user_id,
+                until_date=until_date,
+                revoke_messages=revoke_messages,
+            )
+        )
 
     async def unban_chat_member(
         self,
         chat_id: Union[str, int],
         user_id: int,
-        only_if_banned: Optional[bool] = None
+        only_if_banned: Optional[bool] = None,
     ) -> bool:
         """
         Use this method to unban a previously banned user in a
@@ -1536,18 +1656,18 @@ class Bot(BaseBot):
         :param only_if_banned: Do nothing if the user is not banned
         :returns: bool
         """
-        return await self(UnbanChatMember(
-            chat_id=chat_id,
-            user_id=user_id,
-            only_if_banned=only_if_banned
-        ))
+        return await self(
+            UnbanChatMember(
+                chat_id=chat_id, user_id=user_id, only_if_banned=only_if_banned
+            )
+        )
 
     async def restrict_chat_member(
         self,
         chat_id: Union[str, int],
         user_id: int,
         permissions: ChatPermissions,
-        until_date: Optional[int] = None
+        until_date: Optional[int] = None,
     ) -> bool:
         """
         Use this method to restrict a user in a supergroup. The bot
@@ -1568,12 +1688,14 @@ class Bot(BaseBot):
         to be restricted forever
         :returns: bool
         """
-        return await self(RestrictChatMember(
-            chat_id=chat_id,
-            user_id=user_id,
-            permissions=permissions,
-            until_date=until_date
-        ))
+        return await self(
+            RestrictChatMember(
+                chat_id=chat_id,
+                user_id=user_id,
+                permissions=permissions,
+                until_date=until_date,
+            )
+        )
 
     async def promote_chat_member(
         self,
@@ -1589,7 +1711,7 @@ class Bot(BaseBot):
         can_promote_members: Optional[bool] = None,
         can_change_info: Optional[bool] = None,
         can_invite_users: Optional[bool] = None,
-        can_pin_messages: Optional[bool] = None
+        can_pin_messages: Optional[bool] = None,
     ) -> bool:
         """
         Use this method to promote or demote a user in a supergroup
@@ -1631,27 +1753,26 @@ class Bot(BaseBot):
         supergroups only
         :returns: bool
         """
-        return await self(PromoteChatMember(
-            chat_id=chat_id,
-            user_id=user_id,
-            is_anonymous=is_anonymous,
-            can_manage_chat=can_manage_chat,
-            can_post_messages=can_post_messages,
-            can_edit_messages=can_edit_messages,
-            can_delete_messages=can_delete_messages,
-            can_manage_voice_chats=can_manage_voice_chats,
-            can_restrict_members=can_restrict_members,
-            can_promote_members=can_promote_members,
-            can_change_info=can_change_info,
-            can_invite_users=can_invite_users,
-            can_pin_messages=can_pin_messages
-        ))
+        return await self(
+            PromoteChatMember(
+                chat_id=chat_id,
+                user_id=user_id,
+                is_anonymous=is_anonymous,
+                can_manage_chat=can_manage_chat,
+                can_post_messages=can_post_messages,
+                can_edit_messages=can_edit_messages,
+                can_delete_messages=can_delete_messages,
+                can_manage_voice_chats=can_manage_voice_chats,
+                can_restrict_members=can_restrict_members,
+                can_promote_members=can_promote_members,
+                can_change_info=can_change_info,
+                can_invite_users=can_invite_users,
+                can_pin_messages=can_pin_messages,
+            )
+        )
 
     async def set_chat_administrator_custom_title(
-        self,
-        chat_id: Union[str, int],
-        user_id: int,
-        custom_title: str
+        self, chat_id: Union[str, int], user_id: int, custom_title: str
     ) -> bool:
         """
         Use this method to set a custom title for an administrator
@@ -1667,16 +1788,14 @@ class Bot(BaseBot):
         emoji are not allowed
         :returns: bool
         """
-        return await self(SetChatAdministratorCustomTitle(
-            chat_id=chat_id,
-            user_id=user_id,
-            custom_title=custom_title
-        ))
+        return await self(
+            SetChatAdministratorCustomTitle(
+                chat_id=chat_id, user_id=user_id, custom_title=custom_title
+            )
+        )
 
     async def ban_chat_sender_chat(
-        self,
-        chat_id: Union[str, int],
-        sender_chat_id: int
+        self, chat_id: Union[str, int], sender_chat_id: int
     ) -> bool:
         """
         Use this method to ban a channel chat in a supergroup or a
@@ -1693,15 +1812,12 @@ class Bot(BaseBot):
         :param sender_chat_id: Unique identifier of the target sender chat
         :returns: bool
         """
-        return await self(BanChatSenderChat(
-            chat_id=chat_id,
-            sender_chat_id=sender_chat_id
-        ))
+        return await self(
+            BanChatSenderChat(chat_id=chat_id, sender_chat_id=sender_chat_id)
+        )
 
     async def unban_chat_sender_chat(
-        self,
-        chat_id: Union[str, int],
-        sender_chat_id: int
+        self, chat_id: Union[str, int], sender_chat_id: int
     ) -> bool:
         """
         Use this method to unban a previously banned channel chat in
@@ -1716,15 +1832,12 @@ class Bot(BaseBot):
         :param sender_chat_id: Unique identifier of the target sender chat
         :returns: bool
         """
-        return await self(UnbanChatSenderChat(
-            chat_id=chat_id,
-            sender_chat_id=sender_chat_id
-        ))
+        return await self(
+            UnbanChatSenderChat(chat_id=chat_id, sender_chat_id=sender_chat_id)
+        )
 
     async def set_chat_permissions(
-        self,
-        chat_id: Union[str, int],
-        permissions: ChatPermissions
+        self, chat_id: Union[str, int], permissions: ChatPermissions
     ) -> bool:
         """
         Use this method to set default chat permissions for all
@@ -1740,15 +1853,9 @@ class Bot(BaseBot):
         :param permissions: A JSON-serialized object for new default chat permissions
         :returns: bool
         """
-        return await self(SetChatPermissions(
-            chat_id=chat_id,
-            permissions=permissions
-        ))
+        return await self(SetChatPermissions(chat_id=chat_id, permissions=permissions))
 
-    async def export_chat_invite_link(
-        self,
-        chat_id: Union[str, int]
-    ) -> str:
+    async def export_chat_invite_link(self, chat_id: Union[str, int]) -> str:
         """
         Use this method to generate a new primary invite link for a
         chat; any previously generated primary link is revoked. The
@@ -1762,9 +1869,7 @@ class Bot(BaseBot):
         target channel (in the format @channelusername)
         :returns: str
         """
-        return await self(ExportChatInviteLink(
-            chat_id=chat_id
-        ))
+        return await self(ExportChatInviteLink(chat_id=chat_id))
 
     async def create_chat_invite_link(
         self,
@@ -1772,7 +1877,7 @@ class Bot(BaseBot):
         name: Optional[str] = None,
         expire_date: Optional[int] = None,
         member_limit: Optional[int] = None,
-        creates_join_request: Optional[bool] = None
+        creates_join_request: Optional[bool] = None,
     ) -> ChatInviteLink:
         """
         Use this method to create an additional invite link for a
@@ -1796,13 +1901,15 @@ class Bot(BaseBot):
         be specified
         :returns: ChatInviteLink
         """
-        return await self(CreateChatInviteLink(
-            chat_id=chat_id,
-            name=name,
-            expire_date=expire_date,
-            member_limit=member_limit,
-            creates_join_request=creates_join_request
-        ))
+        return await self(
+            CreateChatInviteLink(
+                chat_id=chat_id,
+                name=name,
+                expire_date=expire_date,
+                member_limit=member_limit,
+                creates_join_request=creates_join_request,
+            )
+        )
 
     async def edit_chat_invite_link(
         self,
@@ -1811,7 +1918,7 @@ class Bot(BaseBot):
         name: Optional[str] = None,
         expire_date: Optional[int] = None,
         member_limit: Optional[int] = None,
-        creates_join_request: Optional[bool] = None
+        creates_join_request: Optional[bool] = None,
     ) -> ChatInviteLink:
         """
         Use this method to edit a non-primary invite link created by
@@ -1835,19 +1942,19 @@ class Bot(BaseBot):
         be specified
         :returns: ChatInviteLink
         """
-        return await self(EditChatInviteLink(
-            chat_id=chat_id,
-            invite_link=invite_link,
-            name=name,
-            expire_date=expire_date,
-            member_limit=member_limit,
-            creates_join_request=creates_join_request
-        ))
+        return await self(
+            EditChatInviteLink(
+                chat_id=chat_id,
+                invite_link=invite_link,
+                name=name,
+                expire_date=expire_date,
+                member_limit=member_limit,
+                creates_join_request=creates_join_request,
+            )
+        )
 
     async def revoke_chat_invite_link(
-        self,
-        chat_id: Union[str, int],
-        invite_link: str
+        self, chat_id: Union[str, int], invite_link: str
     ) -> ChatInviteLink:
         """
         Use this method to revoke an invite link created by the bot.
@@ -1864,15 +1971,12 @@ class Bot(BaseBot):
         :param invite_link: The invite link to revoke
         :returns: ChatInviteLink
         """
-        return await self(RevokeChatInviteLink(
-            chat_id=chat_id,
-            invite_link=invite_link
-        ))
+        return await self(
+            RevokeChatInviteLink(chat_id=chat_id, invite_link=invite_link)
+        )
 
     async def approve_chat_join_request(
-        self,
-        chat_id: Union[str, int],
-        user_id: int
+        self, chat_id: Union[str, int], user_id: int
     ) -> bool:
         """
         Use this method to approve a chat join request. The bot must
@@ -1887,15 +1991,10 @@ class Bot(BaseBot):
         :param user_id: Unique identifier of the target user
         :returns: bool
         """
-        return await self(ApproveChatJoinRequest(
-            chat_id=chat_id,
-            user_id=user_id
-        ))
+        return await self(ApproveChatJoinRequest(chat_id=chat_id, user_id=user_id))
 
     async def decline_chat_join_request(
-        self,
-        chat_id: Union[str, int],
-        user_id: int
+        self, chat_id: Union[str, int], user_id: int
     ) -> bool:
         """
         Use this method to decline a chat join request. The bot must
@@ -1910,16 +2009,9 @@ class Bot(BaseBot):
         :param user_id: Unique identifier of the target user
         :returns: bool
         """
-        return await self(DeclineChatJoinRequest(
-            chat_id=chat_id,
-            user_id=user_id
-        ))
+        return await self(DeclineChatJoinRequest(chat_id=chat_id, user_id=user_id))
 
-    async def set_chat_photo(
-        self,
-        chat_id: Union[str, int],
-        photo: InputFile
-    ) -> bool:
+    async def set_chat_photo(self, chat_id: Union[str, int], photo: InputFile) -> bool:
         """
         Use this method to set a new profile photo for the chat.
         Photos can't be changed for private chats. The bot must be
@@ -1934,15 +2026,9 @@ class Bot(BaseBot):
         :param photo: New chat photo, uploaded using multipart/form-data
         :returns: bool
         """
-        return await self(SetChatPhoto(
-            chat_id=chat_id,
-            photo=photo
-        ))
+        return await self(SetChatPhoto(chat_id=chat_id, photo=photo))
 
-    async def delete_chat_photo(
-        self,
-        chat_id: Union[str, int]
-    ) -> bool:
+    async def delete_chat_photo(self, chat_id: Union[str, int]) -> bool:
         """
         Use this method to delete a chat photo. Photos can't be
         changed for private chats. The bot must be an administrator
@@ -1955,15 +2041,9 @@ class Bot(BaseBot):
         target channel (in the format @channelusername)
         :returns: bool
         """
-        return await self(DeleteChatPhoto(
-            chat_id=chat_id
-        ))
+        return await self(DeleteChatPhoto(chat_id=chat_id))
 
-    async def set_chat_title(
-        self,
-        chat_id: Union[str, int],
-        title: str
-    ) -> bool:
+    async def set_chat_title(self, chat_id: Union[str, int], title: str) -> bool:
         """
         Use this method to change the title of a chat. Titles can't
         be changed for private chats. The bot must be an
@@ -1977,15 +2057,10 @@ class Bot(BaseBot):
         :param title: New chat title, 1-255 characters
         :returns: bool
         """
-        return await self(SetChatTitle(
-            chat_id=chat_id,
-            title=title
-        ))
+        return await self(SetChatTitle(chat_id=chat_id, title=title))
 
     async def set_chat_description(
-        self,
-        chat_id: Union[str, int],
-        description: Optional[str] = None
+        self, chat_id: Union[str, int], description: Optional[str] = None
     ) -> bool:
         """
         Use this method to change the description of a group, a
@@ -2000,16 +2075,13 @@ class Bot(BaseBot):
         :param description: New chat description, 0-255 characters
         :returns: bool
         """
-        return await self(SetChatDescription(
-            chat_id=chat_id,
-            description=description
-        ))
+        return await self(SetChatDescription(chat_id=chat_id, description=description))
 
     async def pin_chat_message(
         self,
         chat_id: Union[str, int],
         message_id: int,
-        disable_notification: Optional[bool] = None
+        disable_notification: Optional[bool] = None,
     ) -> bool:
         """
         Use this method to add a message to the list of pinned
@@ -2029,16 +2101,16 @@ class Bot(BaseBot):
         are always disabled in channels and private chats.
         :returns: bool
         """
-        return await self(PinChatMessage(
-            chat_id=chat_id,
-            message_id=message_id,
-            disable_notification=disable_notification
-        ))
+        return await self(
+            PinChatMessage(
+                chat_id=chat_id,
+                message_id=message_id,
+                disable_notification=disable_notification,
+            )
+        )
 
     async def unpin_chat_message(
-        self,
-        chat_id: Union[str, int],
-        message_id: Optional[int] = None
+        self, chat_id: Union[str, int], message_id: Optional[int] = None
     ) -> bool:
         """
         Use this method to remove a message from the list of pinned
@@ -2056,15 +2128,9 @@ class Bot(BaseBot):
         recent pinned message (by sending date) will be unpinned.
         :returns: bool
         """
-        return await self(UnpinChatMessage(
-            chat_id=chat_id,
-            message_id=message_id
-        ))
+        return await self(UnpinChatMessage(chat_id=chat_id, message_id=message_id))
 
-    async def unpin_all_chat_messages(
-        self,
-        chat_id: Union[str, int]
-    ) -> bool:
+    async def unpin_all_chat_messages(self, chat_id: Union[str, int]) -> bool:
         """
         Use this method to clear the list of pinned messages in a
         chat. If the chat is not a private chat, the bot must be an
@@ -2079,14 +2145,9 @@ class Bot(BaseBot):
         target channel (in the format @channelusername)
         :returns: bool
         """
-        return await self(UnpinAllChatMessages(
-            chat_id=chat_id
-        ))
+        return await self(UnpinAllChatMessages(chat_id=chat_id))
 
-    async def leave_chat(
-        self,
-        chat_id: Union[str, int]
-    ) -> bool:
+    async def leave_chat(self, chat_id: Union[str, int]) -> bool:
         """
         Use this method for your bot to leave a group, supergroup or
         channel. Returns True on success.
@@ -2098,14 +2159,9 @@ class Bot(BaseBot):
         @channelusername)
         :returns: bool
         """
-        return await self(LeaveChat(
-            chat_id=chat_id
-        ))
+        return await self(LeaveChat(chat_id=chat_id))
 
-    async def get_chat(
-        self,
-        chat_id: Union[str, int]
-    ) -> ChatInfo:
+    async def get_chat(self, chat_id: Union[str, int]) -> ChatInfo:
         """
         Use this method to get up to date information about the chat
         (current name of the user for one-on-one conversations,
@@ -2119,13 +2175,10 @@ class Bot(BaseBot):
         @channelusername)
         :returns: ChatInfo
         """
-        return await self(GetChat(
-            chat_id=chat_id
-        ))
+        return await self(GetChat(chat_id=chat_id))
 
     async def get_chat_administrators(
-        self,
-        chat_id: Union[str, int]
+        self, chat_id: Union[str, int]
     ) -> List[ChatMember]:
         """
         Use this method to get a list of administrators in a chat.
@@ -2142,14 +2195,9 @@ class Bot(BaseBot):
         @channelusername)
         :returns: List[ChatMember]
         """
-        return await self(GetChatAdministrators(
-            chat_id=chat_id
-        ))
+        return await self(GetChatAdministrators(chat_id=chat_id))
 
-    async def get_chat_member_count(
-        self,
-        chat_id: Union[str, int]
-    ) -> int:
+    async def get_chat_member_count(self, chat_id: Union[str, int]) -> int:
         """
         Use this method to get the number of members in a chat.
         Returns Int on success.
@@ -2161,14 +2209,10 @@ class Bot(BaseBot):
         @channelusername)
         :returns: int
         """
-        return await self(GetChatMemberCount(
-            chat_id=chat_id
-        ))
+        return await self(GetChatMemberCount(chat_id=chat_id))
 
     async def get_chat_member(
-        self,
-        chat_id: Union[str, int],
-        user_id: int
+        self, chat_id: Union[str, int], user_id: int
     ) -> ChatMember:
         """
         Use this method to get information about a member of a chat.
@@ -2182,15 +2226,10 @@ class Bot(BaseBot):
         :param user_id: Unique identifier of the target user
         :returns: ChatMember
         """
-        return await self(GetChatMember(
-            chat_id=chat_id,
-            user_id=user_id
-        ))
+        return await self(GetChatMember(chat_id=chat_id, user_id=user_id))
 
     async def set_chat_sticker_set(
-        self,
-        chat_id: Union[str, int],
-        sticker_set_name: str
+        self, chat_id: Union[str, int], sticker_set_name: str
     ) -> bool:
         """
         Use this method to set a new group sticker set for a
@@ -2207,15 +2246,11 @@ class Bot(BaseBot):
         :param sticker_set_name: Name of the sticker set to be set as the group sticker set
         :returns: bool
         """
-        return await self(SetChatStickerSet(
-            chat_id=chat_id,
-            sticker_set_name=sticker_set_name
-        ))
+        return await self(
+            SetChatStickerSet(chat_id=chat_id, sticker_set_name=sticker_set_name)
+        )
 
-    async def delete_chat_sticker_set(
-        self,
-        chat_id: Union[str, int]
-    ) -> bool:
+    async def delete_chat_sticker_set(self, chat_id: Union[str, int]) -> bool:
         """
         Use this method to delete a group sticker set from a
         supergroup. The bot must be an administrator in the chat for
@@ -2230,9 +2265,7 @@ class Bot(BaseBot):
         target supergroup (in the format @supergroupusername)
         :returns: bool
         """
-        return await self(DeleteChatStickerSet(
-            chat_id=chat_id
-        ))
+        return await self(DeleteChatStickerSet(chat_id=chat_id))
 
     async def answer_callback_query(
         self,
@@ -2240,7 +2273,7 @@ class Bot(BaseBot):
         text: Optional[str] = None,
         show_alert: Optional[bool] = None,
         url: Optional[str] = None,
-        cache_time: Optional[int] = None
+        cache_time: Optional[int] = None,
     ) -> bool:
         """
         Use this method to send answers to callback queries sent
@@ -2268,19 +2301,21 @@ class Bot(BaseBot):
         support caching starting in version 3.14. Defaults to 0.
         :returns: bool
         """
-        return await self(AnswerCallbackQuery(
-            callback_query_id=callback_query_id,
-            text=text,
-            show_alert=show_alert,
-            url=url,
-            cache_time=cache_time
-        ))
+        return await self(
+            AnswerCallbackQuery(
+                callback_query_id=callback_query_id,
+                text=text,
+                show_alert=show_alert,
+                url=url,
+                cache_time=cache_time,
+            )
+        )
 
     async def set_my_commands(
         self,
         commands: List[BotCommand],
         scope: Optional[BotCommandScope] = None,
-        language_code: Optional[str] = None
+        language_code: Optional[str] = None,
     ) -> bool:
         """
         Use this method to change the list of the bot's commands.
@@ -2300,16 +2335,14 @@ class Bot(BaseBot):
         language there are no dedicated commands
         :returns: bool
         """
-        return await self(SetMyCommands(
-            commands=commands,
-            scope=scope,
-            language_code=language_code
-        ))
+        return await self(
+            SetMyCommands(commands=commands, scope=scope, language_code=language_code)
+        )
 
     async def delete_my_commands(
         self,
         scope: Optional[BotCommandScope] = None,
-        language_code: Optional[str] = None
+        language_code: Optional[str] = None,
     ) -> bool:
         """
         Use this method to delete the list of the bot's commands for
@@ -2327,15 +2360,12 @@ class Bot(BaseBot):
         language there are no dedicated commands
         :returns: bool
         """
-        return await self(DeleteMyCommands(
-            scope=scope,
-            language_code=language_code
-        ))
+        return await self(DeleteMyCommands(scope=scope, language_code=language_code))
 
     async def get_my_commands(
         self,
         scope: Optional[BotCommandScope] = None,
-        language_code: Optional[str] = None
+        language_code: Optional[str] = None,
     ) -> List[BotCommand]:
         """
         Use this method to get the current list of the bot's
@@ -2350,10 +2380,7 @@ class Bot(BaseBot):
         :param language_code: A two-letter ISO 639-1 language code or an empty string
         :returns: List[BotCommand]
         """
-        return await self(GetMyCommands(
-            scope=scope,
-            language_code=language_code
-        ))
+        return await self(GetMyCommands(scope=scope, language_code=language_code))
 
     async def edit_message_text(
         self,
@@ -2364,7 +2391,7 @@ class Bot(BaseBot):
         parse_mode: Optional[str] = None,
         entities: Optional[List[MessageEntity]] = None,
         disable_web_page_preview: Optional[bool] = None,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Union[Message, bool]:
         """
         Use this method to edit text and game messages. On success,
@@ -2390,16 +2417,18 @@ class Bot(BaseBot):
         :param reply_markup: A JSON-serialized object for an inline keyboard.
         :returns: Union[Message, bool]
         """
-        return await self(EditMessageText(
-            text=text,
-            chat_id=chat_id,
-            message_id=message_id,
-            inline_message_id=inline_message_id,
-            parse_mode=parse_mode,
-            entities=entities,
-            disable_web_page_preview=disable_web_page_preview,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            EditMessageText(
+                text=text,
+                chat_id=chat_id,
+                message_id=message_id,
+                inline_message_id=inline_message_id,
+                parse_mode=parse_mode,
+                entities=entities,
+                disable_web_page_preview=disable_web_page_preview,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def edit_message_caption(
         self,
@@ -2409,7 +2438,7 @@ class Bot(BaseBot):
         caption: Optional[str] = None,
         parse_mode: Optional[str] = None,
         caption_entities: Optional[List[MessageEntity]] = None,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Union[Message, bool]:
         """
         Use this method to edit captions of messages. On success, if
@@ -2434,15 +2463,17 @@ class Bot(BaseBot):
         :param reply_markup: A JSON-serialized object for an inline keyboard.
         :returns: Union[Message, bool]
         """
-        return await self(EditMessageCaption(
-            chat_id=chat_id,
-            message_id=message_id,
-            inline_message_id=inline_message_id,
-            caption=caption,
-            parse_mode=parse_mode,
-            caption_entities=caption_entities,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            EditMessageCaption(
+                chat_id=chat_id,
+                message_id=message_id,
+                inline_message_id=inline_message_id,
+                caption=caption,
+                parse_mode=parse_mode,
+                caption_entities=caption_entities,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def edit_message_media(
         self,
@@ -2450,7 +2481,7 @@ class Bot(BaseBot):
         chat_id: Optional[Union[str, int]] = None,
         message_id: Optional[int] = None,
         inline_message_id: Optional[str] = None,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Union[Message, bool]:
         """
         Use this method to edit animation, audio, document, photo,
@@ -2477,20 +2508,22 @@ class Bot(BaseBot):
         :param reply_markup: A JSON-serialized object for a new inline keyboard.
         :returns: Union[Message, bool]
         """
-        return await self(EditMessageMedia(
-            media=media,
-            chat_id=chat_id,
-            message_id=message_id,
-            inline_message_id=inline_message_id,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            EditMessageMedia(
+                media=media,
+                chat_id=chat_id,
+                message_id=message_id,
+                inline_message_id=inline_message_id,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def edit_message_reply_markup(
         self,
         chat_id: Optional[Union[str, int]] = None,
         message_id: Optional[int] = None,
         inline_message_id: Optional[str] = None,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Union[Message, bool]:
         """
         Use this method to edit only the reply markup of messages.
@@ -2509,18 +2542,20 @@ class Bot(BaseBot):
         :param reply_markup: A JSON-serialized object for an inline keyboard.
         :returns: Union[Message, bool]
         """
-        return await self(EditMessageReplyMarkup(
-            chat_id=chat_id,
-            message_id=message_id,
-            inline_message_id=inline_message_id,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            EditMessageReplyMarkup(
+                chat_id=chat_id,
+                message_id=message_id,
+                inline_message_id=inline_message_id,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def stop_poll(
         self,
         chat_id: Union[str, int],
         message_id: int,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Poll:
         """
         Use this method to stop a poll which was sent by the bot. On
@@ -2534,17 +2569,11 @@ class Bot(BaseBot):
         :param reply_markup: A JSON-serialized object for a new message inline keyboard.
         :returns: Poll
         """
-        return await self(StopPoll(
-            chat_id=chat_id,
-            message_id=message_id,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            StopPoll(chat_id=chat_id, message_id=message_id, reply_markup=reply_markup)
+        )
 
-    async def delete_message(
-        self,
-        chat_id: Union[str, int],
-        message_id: int
-    ) -> bool:
+    async def delete_message(self, chat_id: Union[str, int], message_id: int) -> bool:
         """
         Use this method to delete a message, including service
         messages, with the following limitations:- A message can
@@ -2566,10 +2595,7 @@ class Bot(BaseBot):
         :param message_id: Identifier of the message to delete
         :returns: bool
         """
-        return await self(DeleteMessage(
-            chat_id=chat_id,
-            message_id=message_id
-        ))
+        return await self(DeleteMessage(chat_id=chat_id, message_id=message_id))
 
     async def send_sticker(
         self,
@@ -2579,7 +2605,14 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = None
+        reply_markup: Optional[
+            Union[
+                InlineKeyboardMarkup,
+                ReplyKeyboardMarkup,
+                ReplyKeyboardRemove,
+                ForceReply,
+            ]
+        ] = None,
     ) -> Message:
         """
         Use this method to send static .WEBP, animated .TGS, or
@@ -2607,20 +2640,19 @@ class Bot(BaseBot):
         remove reply keyboard or to force a reply from the user.
         :returns: Message
         """
-        return await self(SendSticker(
-            chat_id=chat_id,
-            sticker=sticker,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendSticker(
+                chat_id=chat_id,
+                sticker=sticker,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
-    async def get_sticker_set(
-        self,
-        name: str
-    ) -> StickerSet:
+    async def get_sticker_set(self, name: str) -> StickerSet:
         """
         Use this method to get a sticker set. On success, a
         StickerSet object is returned.
@@ -2630,15 +2662,9 @@ class Bot(BaseBot):
         :param name: Name of the sticker set
         :returns: StickerSet
         """
-        return await self(GetStickerSet(
-            name=name
-        ))
+        return await self(GetStickerSet(name=name))
 
-    async def upload_sticker_file(
-        self,
-        user_id: int,
-        png_sticker: InputFile
-    ) -> File:
+    async def upload_sticker_file(self, user_id: int, png_sticker: InputFile) -> File:
         """
         Use this method to upload a .PNG file with a sticker for
         later use in createNewStickerSet and addStickerToSet methods
@@ -2653,10 +2679,7 @@ class Bot(BaseBot):
         height must be exactly 512px. More info on Sending Files »
         :returns: File
         """
-        return await self(UploadStickerFile(
-            user_id=user_id,
-            png_sticker=png_sticker
-        ))
+        return await self(UploadStickerFile(user_id=user_id, png_sticker=png_sticker))
 
     async def create_new_sticker_set(
         self,
@@ -2668,7 +2691,7 @@ class Bot(BaseBot):
         tgs_sticker: Optional[InputFile] = None,
         webm_sticker: Optional[InputFile] = None,
         contains_masks: Optional[bool] = None,
-        mask_position: Optional[MaskPosition] = None
+        mask_position: Optional[MaskPosition] = None,
     ) -> bool:
         """
         Use this method to create a new sticker set owned by a user.
@@ -2706,17 +2729,19 @@ class Bot(BaseBot):
         be placed on faces
         :returns: bool
         """
-        return await self(CreateNewStickerSet(
-            user_id=user_id,
-            name=name,
-            title=title,
-            emojis=emojis,
-            png_sticker=png_sticker,
-            tgs_sticker=tgs_sticker,
-            webm_sticker=webm_sticker,
-            contains_masks=contains_masks,
-            mask_position=mask_position
-        ))
+        return await self(
+            CreateNewStickerSet(
+                user_id=user_id,
+                name=name,
+                title=title,
+                emojis=emojis,
+                png_sticker=png_sticker,
+                tgs_sticker=tgs_sticker,
+                webm_sticker=webm_sticker,
+                contains_masks=contains_masks,
+                mask_position=mask_position,
+            )
+        )
 
     async def add_sticker_to_set(
         self,
@@ -2726,7 +2751,7 @@ class Bot(BaseBot):
         png_sticker: Optional[Union[InputFile, str]] = None,
         tgs_sticker: Optional[InputFile] = None,
         webm_sticker: Optional[InputFile] = None,
-        mask_position: Optional[MaskPosition] = None
+        mask_position: Optional[MaskPosition] = None,
     ) -> bool:
         """
         Use this method to add a new sticker to a set created by the
@@ -2759,21 +2784,19 @@ class Bot(BaseBot):
         be placed on faces
         :returns: bool
         """
-        return await self(AddStickerToSet(
-            user_id=user_id,
-            name=name,
-            emojis=emojis,
-            png_sticker=png_sticker,
-            tgs_sticker=tgs_sticker,
-            webm_sticker=webm_sticker,
-            mask_position=mask_position
-        ))
+        return await self(
+            AddStickerToSet(
+                user_id=user_id,
+                name=name,
+                emojis=emojis,
+                png_sticker=png_sticker,
+                tgs_sticker=tgs_sticker,
+                webm_sticker=webm_sticker,
+                mask_position=mask_position,
+            )
+        )
 
-    async def set_sticker_position_in_set(
-        self,
-        sticker: str,
-        position: int
-    ) -> bool:
+    async def set_sticker_position_in_set(self, sticker: str, position: int) -> bool:
         """
         Use this method to move a sticker in a set created by the
         bot to a specific position. Returns True on success.
@@ -2784,15 +2807,9 @@ class Bot(BaseBot):
         :param position: New sticker position in the set, zero-based
         :returns: bool
         """
-        return await self(SetStickerPositionInSet(
-            sticker=sticker,
-            position=position
-        ))
+        return await self(SetStickerPositionInSet(sticker=sticker, position=position))
 
-    async def delete_sticker_from_set(
-        self,
-        sticker: str
-    ) -> bool:
+    async def delete_sticker_from_set(self, sticker: str) -> bool:
         """
         Use this method to delete a sticker from a set created by
         the bot. Returns True on success.
@@ -2802,15 +2819,10 @@ class Bot(BaseBot):
         :param sticker: File identifier of the sticker
         :returns: bool
         """
-        return await self(DeleteStickerFromSet(
-            sticker=sticker
-        ))
+        return await self(DeleteStickerFromSet(sticker=sticker))
 
     async def set_sticker_set_thumb(
-        self,
-        name: str,
-        user_id: int,
-        thumb: Optional[Union[InputFile, str]] = None
+        self, name: str, user_id: int, thumb: Optional[Union[InputFile, str]] = None
     ) -> bool:
         """
         Use this method to set the thumbnail of a sticker set.
@@ -2838,11 +2850,7 @@ class Bot(BaseBot):
         URL.
         :returns: bool
         """
-        return await self(SetStickerSetThumb(
-            name=name,
-            user_id=user_id,
-            thumb=thumb
-        ))
+        return await self(SetStickerSetThumb(name=name, user_id=user_id, thumb=thumb))
 
     async def answer_inline_query(
         self,
@@ -2852,7 +2860,7 @@ class Bot(BaseBot):
         is_personal: Optional[bool] = None,
         next_offset: Optional[str] = None,
         switch_pm_text: Optional[str] = None,
-        switch_pm_parameter: Optional[str] = None
+        switch_pm_parameter: Optional[str] = None,
     ) -> bool:
         """
         Use this method to send answers to an inline query. On
@@ -2891,15 +2899,17 @@ class Bot(BaseBot):
         inline capabilities.
         :returns: bool
         """
-        return await self(AnswerInlineQuery(
-            inline_query_id=inline_query_id,
-            results=results,
-            cache_time=cache_time,
-            is_personal=is_personal,
-            next_offset=next_offset,
-            switch_pm_text=switch_pm_text,
-            switch_pm_parameter=switch_pm_parameter
-        ))
+        return await self(
+            AnswerInlineQuery(
+                inline_query_id=inline_query_id,
+                results=results,
+                cache_time=cache_time,
+                is_personal=is_personal,
+                next_offset=next_offset,
+                switch_pm_text=switch_pm_text,
+                switch_pm_parameter=switch_pm_parameter,
+            )
+        )
 
     async def send_invoice(
         self,
@@ -2929,7 +2939,7 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Message:
         """
         Use this method to send invoices. On success, the sent
@@ -2999,42 +3009,44 @@ class Bot(BaseBot):
         the first button must be a Pay button.
         :returns: Message
         """
-        return await self(SendInvoice(
-            chat_id=chat_id,
-            title=title,
-            description=description,
-            payload=payload,
-            provider_token=provider_token,
-            currency=currency,
-            prices=prices,
-            max_tip_amount=max_tip_amount,
-            suggested_tip_amounts=suggested_tip_amounts,
-            start_parameter=start_parameter,
-            provider_data=provider_data,
-            photo_url=photo_url,
-            photo_size=photo_size,
-            photo_width=photo_width,
-            photo_height=photo_height,
-            need_name=need_name,
-            need_phone_number=need_phone_number,
-            need_email=need_email,
-            need_shipping_address=need_shipping_address,
-            send_phone_number_to_provider=send_phone_number_to_provider,
-            send_email_to_provider=send_email_to_provider,
-            is_flexible=is_flexible,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendInvoice(
+                chat_id=chat_id,
+                title=title,
+                description=description,
+                payload=payload,
+                provider_token=provider_token,
+                currency=currency,
+                prices=prices,
+                max_tip_amount=max_tip_amount,
+                suggested_tip_amounts=suggested_tip_amounts,
+                start_parameter=start_parameter,
+                provider_data=provider_data,
+                photo_url=photo_url,
+                photo_size=photo_size,
+                photo_width=photo_width,
+                photo_height=photo_height,
+                need_name=need_name,
+                need_phone_number=need_phone_number,
+                need_email=need_email,
+                need_shipping_address=need_shipping_address,
+                send_phone_number_to_provider=send_phone_number_to_provider,
+                send_email_to_provider=send_email_to_provider,
+                is_flexible=is_flexible,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def answer_shipping_query(
         self,
         shipping_query_id: str,
         ok: bool,
         shipping_options: Optional[List[ShippingOption]] = None,
-        error_message: Optional[str] = None
+        error_message: Optional[str] = None,
     ) -> bool:
         """
         If you sent an invoice requesting a shipping address and the
@@ -3058,18 +3070,17 @@ class Bot(BaseBot):
         user.
         :returns: bool
         """
-        return await self(AnswerShippingQuery(
-            shipping_query_id=shipping_query_id,
-            ok=ok,
-            shipping_options=shipping_options,
-            error_message=error_message
-        ))
+        return await self(
+            AnswerShippingQuery(
+                shipping_query_id=shipping_query_id,
+                ok=ok,
+                shipping_options=shipping_options,
+                error_message=error_message,
+            )
+        )
 
     async def answer_pre_checkout_query(
-        self,
-        pre_checkout_query_id: str,
-        ok: bool,
-        error_message: Optional[str] = None
+        self, pre_checkout_query_id: str, ok: bool, error_message: Optional[str] = None
     ) -> bool:
         """
         Once the user has confirmed their payment and shipping
@@ -3094,16 +3105,16 @@ class Bot(BaseBot):
         garment!"). Telegram will display this message to the user.
         :returns: bool
         """
-        return await self(AnswerPreCheckoutQuery(
-            pre_checkout_query_id=pre_checkout_query_id,
-            ok=ok,
-            error_message=error_message
-        ))
+        return await self(
+            AnswerPreCheckoutQuery(
+                pre_checkout_query_id=pre_checkout_query_id,
+                ok=ok,
+                error_message=error_message,
+            )
+        )
 
     async def set_passport_data_errors(
-        self,
-        user_id: int,
-        errors: List[PassportElementError]
+        self, user_id: int, errors: List[PassportElementError]
     ) -> bool:
         """
         Informs a user that some of the Telegram Passport elements
@@ -3118,10 +3129,7 @@ class Bot(BaseBot):
         :param errors: A JSON-serialized array describing the errors
         :returns: bool
         """
-        return await self(SetPassportDataErrors(
-            user_id=user_id,
-            errors=errors
-        ))
+        return await self(SetPassportDataErrors(user_id=user_id, errors=errors))
 
     async def send_game(
         self,
@@ -3131,7 +3139,7 @@ class Bot(BaseBot):
         protect_content: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Optional[InlineKeyboardMarkup] = None
+        reply_markup: Optional[InlineKeyboardMarkup] = None,
     ) -> Message:
         """
         Use this method to send a game. On success, the sent Message
@@ -3154,15 +3162,17 @@ class Bot(BaseBot):
         the first button must launch the game.
         :returns: Message
         """
-        return await self(SendGame(
-            chat_id=chat_id,
-            game_short_name=game_short_name,
-            disable_notification=disable_notification,
-            protect_content=protect_content,
-            reply_to_message_id=reply_to_message_id,
-            allow_sending_without_reply=allow_sending_without_reply,
-            reply_markup=reply_markup
-        ))
+        return await self(
+            SendGame(
+                chat_id=chat_id,
+                game_short_name=game_short_name,
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                reply_to_message_id=reply_to_message_id,
+                allow_sending_without_reply=allow_sending_without_reply,
+                reply_markup=reply_markup,
+            )
+        )
 
     async def set_game_score(
         self,
@@ -3172,7 +3182,7 @@ class Bot(BaseBot):
         disable_edit_message: Optional[bool] = None,
         chat_id: Optional[int] = None,
         message_id: Optional[int] = None,
-        inline_message_id: Optional[str] = None
+        inline_message_id: Optional[str] = None,
     ) -> Union[Message, bool]:
         """
         Use this method to set the score of the specified user in a
@@ -3198,22 +3208,24 @@ class Bot(BaseBot):
         Identifier of the inline message
         :returns: Union[Message, bool]
         """
-        return await self(SetGameScore(
-            user_id=user_id,
-            score=score,
-            force=force,
-            disable_edit_message=disable_edit_message,
-            chat_id=chat_id,
-            message_id=message_id,
-            inline_message_id=inline_message_id
-        ))
+        return await self(
+            SetGameScore(
+                user_id=user_id,
+                score=score,
+                force=force,
+                disable_edit_message=disable_edit_message,
+                chat_id=chat_id,
+                message_id=message_id,
+                inline_message_id=inline_message_id,
+            )
+        )
 
     async def get_game_high_scores(
         self,
         user_id: int,
         chat_id: Optional[int] = None,
         message_id: Optional[int] = None,
-        inline_message_id: Optional[str] = None
+        inline_message_id: Optional[str] = None,
     ) -> List[GameHighScore]:
         """
         Use this method to get data for high score tables. Will
@@ -3232,9 +3244,11 @@ class Bot(BaseBot):
         Identifier of the inline message
         :returns: List[GameHighScore]
         """
-        return await self(GetGameHighScores(
-            user_id=user_id,
-            chat_id=chat_id,
-            message_id=message_id,
-            inline_message_id=inline_message_id
-        ))
+        return await self(
+            GetGameHighScores(
+                user_id=user_id,
+                chat_id=chat_id,
+                message_id=message_id,
+                inline_message_id=inline_message_id,
+            )
+        )
