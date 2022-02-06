@@ -50,5 +50,5 @@ class InlineQueryResultContact(InlineQueryResult):
     thumb_height: Optional[int] = field(default=None)
     """Optional. Thumbnail height"""
 
-    type_: str = field(default='contact')
+    type_: str = field(default="contact")
     """Type of the result, must be contact"""

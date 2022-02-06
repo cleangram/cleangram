@@ -2,7 +2,9 @@ from .animation import Animation
 from .audio import Audio
 from .bot_command import BotCommand
 from .bot_command_scope import BotCommandScope
-from .bot_command_scope_all_chat_administrators import BotCommandScopeAllChatAdministrators
+from .bot_command_scope_all_chat_administrators import (
+    BotCommandScopeAllChatAdministrators,
+)
 from .bot_command_scope_all_group_chats import BotCommandScopeAllGroupChats
 from .bot_command_scope_all_private_chats import BotCommandScopeAllPrivateChats
 from .bot_command_scope_chat import BotCommandScopeChat
@@ -94,7 +96,9 @@ from .passport_element_error_front_side import PassportElementErrorFrontSide
 from .passport_element_error_reverse_side import PassportElementErrorReverseSide
 from .passport_element_error_selfie import PassportElementErrorSelfie
 from .passport_element_error_translation_file import PassportElementErrorTranslationFile
-from .passport_element_error_translation_files import PassportElementErrorTranslationFiles
+from .passport_element_error_translation_files import (
+    PassportElementErrorTranslationFiles,
+)
 from .passport_element_error_unspecified import PassportElementErrorUnspecified
 from .passport_file import PassportFile
 from .photo_size import PhotoSize
@@ -256,5 +260,5 @@ __all__ = [
     "VoiceChatParticipantsInvited",
     "VoiceChatScheduled",
     "VoiceChatStarted",
-    "WebhookInfo"
+    "WebhookInfo",
 ]

@@ -22,8 +22,10 @@ class Polling:
                 updates = await bot.get_updates(offset=offset, timeout=3)
                 if updates:
                     ids = [u.update_id for u in updates]
-                    offset = max(ids)+1
-                    await asyncio.gather(*[self.app.notify(update, bot) for update in updates])
+                    offset = max(ids) + 1
+                    await asyncio.gather(
+                        *[self.app.notify(update, bot) for update in updates]
+                    )
                 await asyncio.sleep(0.5)
 
     def run(self):

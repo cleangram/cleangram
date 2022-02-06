@@ -10,7 +10,7 @@ from ..types import (
     Message,
     ReplyKeyboardMarkup,
     ReplyKeyboardRemove,
-    Response
+    Response,
 )
 from .base import TelegramMethod
 
@@ -68,7 +68,11 @@ class SendVideoNote(TelegramMethod, response=Response[Message]):
     """Pass True, if the message should be sent even if the
     specified replied-to message is not found"""
 
-    reply_markup: Optional[Union[InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply]] = field(default=None)
+    reply_markup: Optional[
+        Union[
+            InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply
+        ]
+    ] = field(default=None)
     """Additional interface options. A JSON-serialized object for
     an inline keyboard, custom reply keyboard, instructions to
     remove reply keyboard or to force a reply from the user."""

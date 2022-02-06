@@ -3,12 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
-from ..types import (
-    InlineKeyboardMarkup,
-    InputMedia,
-    Message,
-    Response
-)
+from ..types import InlineKeyboardMarkup, InputMedia, Message, Response
 from .base import TelegramMethod
 
 

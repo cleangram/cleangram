@@ -14,5 +14,5 @@ class BotCommandScopeAllPrivateChats(BotCommandScope):
     Reference: https://core.telegram.org/bots/api#botcommandscopeallprivatechats
     """
 
-    type_: str = field(default='all_private_chats')
+    type_: str = field(default="all_private_chats")
     """Scope type, must be all_private_chats"""

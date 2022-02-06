@@ -57,5 +57,5 @@ class InputMediaAnimation(InputMedia):
     duration: Optional[int] = field(default=None)
     """Optional. Animation duration in seconds"""
 
-    type_: str = field(default='animation')
+    type_: str = field(default="animation")
     """Type of the result, must be animation"""

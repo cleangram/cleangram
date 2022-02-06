@@ -10,5 +10,4 @@ class _Env:
     WEBHOOK_ENDPOINT: str = ""
 
 
-env = _Env(**{f.name: os.environ[f.name] for f in fields(_Env)
-              if f.name in os.environ})
+env = _Env(**{f.name: os.environ[f.name] for f in fields(_Env) if f.name in os.environ})

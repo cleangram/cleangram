@@ -64,5 +64,5 @@ class InlineQueryResultLocation(InlineQueryResult):
     thumb_height: Optional[int] = field(default=None)
     """Optional. Thumbnail height"""
 
-    type_: str = field(default='location')
+    type_: str = field(default="location")
     """Type of the result, must be location"""

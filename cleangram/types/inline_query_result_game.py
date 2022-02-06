@@ -23,5 +23,5 @@ class InlineQueryResultGame(InlineQueryResult):
     reply_markup: Optional[InlineKeyboardMarkup] = field(default=None)
     """Optional. Inline keyboard attached to the message"""
 
-    type_: str = field(default='game')
+    type_: str = field(default="game")
     """Type of the result, must be game"""

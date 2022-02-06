@@ -3,10 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 
-from ..types import (
-    GameHighScore,
-    Response
-)
+from ..types import GameHighScore, Response
 from .base import TelegramMethod
 
 

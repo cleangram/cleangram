@@ -69,5 +69,5 @@ class InlineQueryResultVideo(InlineQueryResult):
     used to send an HTML-page as a result (e.g., a YouTube
     video)."""
 
-    type_: str = field(default='video')
+    type_: str = field(default="video")
     """Type of the result, must be video"""

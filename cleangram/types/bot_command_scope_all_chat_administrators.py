@@ -14,5 +14,5 @@ class BotCommandScopeAllChatAdministrators(BotCommandScope):
     Reference: https://core.telegram.org/bots/api#botcommandscopeallchatadministrators
     """
 
-    type_: str = field(default='all_chat_administrators')
+    type_: str = field(default="all_chat_administrators")
     """Scope type, must be all_chat_administrators"""

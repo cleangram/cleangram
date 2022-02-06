@@ -18,5 +18,5 @@ class BotCommandScopeChat(BotCommandScope):
     """Unique identifier for the target chat or username of the
     target supergroup (in the format @supergroupusername)"""
 
-    type_: str = field(default='chat')
+    type_: str = field(default="chat")
     """Scope type, must be chat"""

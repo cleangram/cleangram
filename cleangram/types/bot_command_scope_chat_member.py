@@ -21,5 +21,5 @@ class BotCommandScopeChatMember(BotCommandScope):
     user_id: int
     """Unique identifier of the target user"""
 
-    type_: str = field(default='chat_member')
+    type_: str = field(default="chat_member")
     """Scope type, must be chat_member"""

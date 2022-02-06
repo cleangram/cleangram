@@ -47,5 +47,5 @@ class InlineQueryResultCachedVoice(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     voice message"""
 
-    type_: str = field(default='voice')
+    type_: str = field(default="voice")
     """Type of the result, must be voice"""

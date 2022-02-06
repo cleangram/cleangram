@@ -51,5 +51,5 @@ class InlineQueryResultCachedVideo(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     video"""
 
-    type_: str = field(default='video')
+    type_: str = field(default="video")
     """Type of the result, must be video"""

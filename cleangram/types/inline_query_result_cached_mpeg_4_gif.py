@@ -49,5 +49,5 @@ class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     video animation"""
 
-    type_: str = field(default='mpeg4_gif')
+    type_: str = field(default="mpeg4_gif")
     """Type of the result, must be mpeg4_gif"""

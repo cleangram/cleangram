@@ -27,5 +27,5 @@ class PassportElementErrorFrontSide(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default='front_side')
+    source: str = field(default="front_side")
     """Error source, must be front_side"""

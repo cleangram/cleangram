@@ -3,10 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
-from ..types import (
-    ChatPermissions,
-    Response
-)
+from ..types import ChatPermissions, Response
 from .base import TelegramMethod
 
 

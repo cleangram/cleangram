@@ -10,5 +10,5 @@ __all__ = [
     *types.__all__,
     *methods.__all__,
     *client.__all__,
-    *application.__all__
+    *application.__all__,
 ]

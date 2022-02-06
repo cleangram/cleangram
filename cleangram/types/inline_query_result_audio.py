@@ -52,5 +52,5 @@ class InlineQueryResultAudio(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     audio"""
 
-    type_: str = field(default='audio')
+    type_: str = field(default="audio")
     """Type of the result, must be audio"""
