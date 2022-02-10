@@ -3,7 +3,6 @@ import logging
 
 from cleangram.client import Bot
 
-
 log = logging.getLogger(__name__)
 
 

@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Type, ClassVar, TYPE_CHECKING, Dict
+from typing import ClassVar, Dict, Type
 
-from cleangram.types import Response, InputFile
+from ..types import InputFile, Response
 
-if TYPE_CHECKING:
-    from cleangram.client import BaseBot
+from ..utils import Presets
 
 
 @dataclass
@@ -16,6 +15,6 @@ class TelegramMethod:
     def __init_subclass__(cls, /, **kwargs):
         cls.__response__ = kwargs.get("response")
 
-    def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
+    def preset(self, presets: Presets) -> Dict[str, InputFile]:
         files: Dict[str, InputFile] = {}
         return files

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, TYPE_CHECKING, Union
+from typing import List, Optional, Union
 
 from ..types import (
     ForceReply,
@@ -13,10 +13,8 @@ from ..types import (
     Response,
 )
 from .base import TelegramMethod
-from ..utils import fit
 
-if TYPE_CHECKING:
-    from ..client import BaseBot
+from ..utils import Presets
 
 
 @dataclass
@@ -71,16 +69,10 @@ class SendMessage(TelegramMethod, response=Response[Message]):
     an inline keyboard, custom reply keyboard, instructions to
     remove reply keyboard or to force a reply from the user."""
 
-    def preset(self, bot: BaseBot):
-        self.parse_mode = fit(self.parse_mode, bot.parse_mode)
-        self.disable_web_page_preview = fit(
-            self.disable_web_page_preview, bot.disable_web_page_preview
-        )
-        self.disable_notification = fit(
-            self.disable_notification, bot.disable_notification
-        )
-        self.protect_content = fit(self.protect_content, bot.protect_content)
-        self.allow_sending_without_reply = fit(
-            self.allow_sending_without_reply, bot.allow_sending_without_reply
-        )
-        return super().preset(bot)
+    def preset(self, presets: Presets):
+        presets.parse_mode(self)
+        presets.disable_web_page_preview(self)
+        presets.disable_notification(self)
+        presets.protect_content(self)
+        presets.allow_sending_without_reply(self)
+        return super(SendMessage, self).preset(presets)

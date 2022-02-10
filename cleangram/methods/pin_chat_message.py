@@ -1,14 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, Optional, TYPE_CHECKING, Union
+from typing import Optional, Union
 
 from ..types import Response
 from .base import TelegramMethod
-from ..utils import fit
 
-if TYPE_CHECKING:
-    from ..client import BaseBot
+from ..utils import Presets
 
 
 @dataclass
@@ -36,8 +34,6 @@ class PinChatMessage(TelegramMethod, response=Response[bool]):
     all chat members about the new pinned message. Notifications
     are always disabled in channels and private chats."""
 
-    def preset(self, bot: BaseBot):
-        self.disable_notification = fit(
-            self.disable_notification, bot.disable_notification
-        )
-        return super().preset(bot)
+    def preset(self, presets: Presets):
+        presets.disable_notification(self)
+        return super(PinChatMessage, self).preset(presets)

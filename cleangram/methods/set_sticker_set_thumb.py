@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, Optional, TYPE_CHECKING, Union
+from typing import Dict, Optional, Union
 
 from ..types import InputFile, Response
 from .base import TelegramMethod
-from ..utils import attach
-from ..utils import fit
 
-if TYPE_CHECKING:
-    from ..client import BaseBot
+from ..utils import Presets, attach
 
 
 @dataclass
@@ -45,7 +42,7 @@ class SetStickerSetThumb(TelegramMethod, response=Response[bool]):
     Animated sticker set thumbnails can't be uploaded via HTTP
     URL."""
 
-    def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
-        files = super().preset(bot)
+    def preset(self, presets: Presets) -> Dict[str, InputFile]:
+        files = super(SetStickerSetThumb, self).preset(presets)
         self.thumb = attach(self.thumb, files)
         return files

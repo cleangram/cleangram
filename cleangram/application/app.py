@@ -3,9 +3,9 @@ from typing import List
 
 from starlette.applications import Starlette
 
+from ..env import env
 from .router import Router
 from .workers import Polling
-from ..env import env
 
 
 class App(Router):
