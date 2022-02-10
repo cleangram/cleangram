@@ -51,5 +51,9 @@ class InlineQueryResultCachedVideo(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     video"""
 
-    type_: str = field(default="video")
+    type_: str = field(default='')
     """Type of the result, must be video"""
+
+    def __post_init__(self):
+        self.type_ = "video"
+    

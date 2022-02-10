@@ -35,8 +35,9 @@ class InputMediaPhoto(InputMedia):
     """Optional. List of special entities that appear in the
     caption, which can be specified instead of parse_mode"""
 
-    type_: str = field(default="")
+    type_: str = field(default='')
     """Type of the result, must be photo"""
 
     def __post_init__(self):
         self.type_ = "photo"
+    

@@ -66,5 +66,9 @@ class InlineQueryResultGif(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     GIF animation"""
 
-    type_: str = field(default="gif")
+    type_: str = field(default='')
     """Type of the result, must be gif"""
+
+    def __post_init__(self):
+        self.type_ = "gif"
+    

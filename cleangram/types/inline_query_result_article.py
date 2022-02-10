@@ -46,5 +46,9 @@ class InlineQueryResultArticle(InlineQueryResult):
     thumb_height: Optional[int] = field(default=None)
     """Optional. Thumbnail height"""
 
-    type_: str = field(default="article")
+    type_: str = field(default='')
     """Type of the result, must be article"""
+
+    def __post_init__(self):
+        self.type_ = "article"
+    

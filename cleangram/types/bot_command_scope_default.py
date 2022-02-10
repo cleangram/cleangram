@@ -15,5 +15,9 @@ class BotCommandScopeDefault(BotCommandScope):
     Reference: https://core.telegram.org/bots/api#botcommandscopedefault
     """
 
-    type_: str = field(default="default")
+    type_: str = field(default='')
     """Scope type, must be default"""
+
+    def __post_init__(self):
+        self.type_ = "default"
+    

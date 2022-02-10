@@ -51,5 +51,9 @@ class InlineQueryResultCachedDocument(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     file"""
 
-    type_: str = field(default="document")
+    type_: str = field(default='')
     """Type of the result, must be document"""
+
+    def __post_init__(self):
+        self.type_ = "document"
+    

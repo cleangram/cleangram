@@ -26,5 +26,9 @@ class PassportElementErrorReverseSide(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default="reverse_side")
+    source: str = field(default='')
     """Error source, must be reverse_side"""
+
+    def __post_init__(self):
+        self.source = "reverse_side"
+    

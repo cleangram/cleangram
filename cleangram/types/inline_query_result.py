@@ -33,6 +33,6 @@ class InlineQueryResult(TelegramType):
         - InlineQueryResultVenue
         - InlineQueryResultVideo
         - InlineQueryResultVoice
-
+    
     Reference: https://core.telegram.org/bots/api#inlinequeryresult
     """

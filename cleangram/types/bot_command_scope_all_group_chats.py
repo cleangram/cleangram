@@ -14,5 +14,9 @@ class BotCommandScopeAllGroupChats(BotCommandScope):
     Reference: https://core.telegram.org/bots/api#botcommandscopeallgroupchats
     """
 
-    type_: str = field(default="all_group_chats")
+    type_: str = field(default='')
     """Scope type, must be all_group_chats"""
+
+    def __post_init__(self):
+        self.type_ = "all_group_chats"
+    

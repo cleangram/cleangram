@@ -51,5 +51,9 @@ class InlineQueryResultCachedPhoto(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     photo"""
 
-    type_: str = field(default="photo")
+    type_: str = field(default='')
     """Type of the result, must be photo"""
+
+    def __post_init__(self):
+        self.type_ = "photo"
+    

@@ -227,9 +227,7 @@ class Message(TelegramType):
     is created. It can only be found in reply_to_message if
     someone replies to a very first message in a channel."""
 
-    message_auto_delete_timer_changed: Optional[MessageAutoDeleteTimerChanged] = field(
-        default=None
-    )
+    message_auto_delete_timer_changed: Optional[MessageAutoDeleteTimerChanged] = field(default=None)
     """Optional. Service message: auto-delete timer settings
     changed in the chat"""
 
@@ -285,9 +283,7 @@ class Message(TelegramType):
     voice_chat_ended: Optional[VoiceChatEnded] = field(default=None)
     """Optional. Service message: voice chat ended"""
 
-    voice_chat_participants_invited: Optional[VoiceChatParticipantsInvited] = field(
-        default=None
-    )
+    voice_chat_participants_invited: Optional[VoiceChatParticipantsInvited] = field(default=None)
     """Optional. Service message: new participants invited to a
     voice chat"""
 

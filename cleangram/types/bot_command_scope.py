@@ -19,6 +19,6 @@ class BotCommandScope(TelegramType):
         - BotCommandScopeChat
         - BotCommandScopeChatAdministrators
         - BotCommandScopeChatMember
-
+    
     Reference: https://core.telegram.org/bots/api#botcommandscope
     """

@@ -22,6 +22,6 @@ class PassportElementError(TelegramType):
         - PassportElementErrorTranslationFile
         - PassportElementErrorTranslationFiles
         - PassportElementErrorUnspecified
-
+    
     Reference: https://core.telegram.org/bots/api#passportelementerror
     """
