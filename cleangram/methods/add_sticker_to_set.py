@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, Union
+from typing import Dict, Optional, TYPE_CHECKING, Union
 
 from ..types import InputFile, MaskPosition, Response
 from .base import TelegramMethod
+from ..utils import attach
+from ..utils import fit
+
+if TYPE_CHECKING:
+    from ..client import BaseBot
 
 
 @dataclass
@@ -52,3 +57,10 @@ class AddStickerToSet(TelegramMethod, response=Response[bool]):
     mask_position: Optional[MaskPosition] = field(default=None)
     """A JSON-serialized object for position where the mask should
     be placed on faces"""
+
+    def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
+        files = super().preset(bot)
+        self.png_sticker = attach(self.png_sticker, files)
+        self.tgs_sticker = attach(self.tgs_sticker, files)
+        self.webm_sticker = attach(self.webm_sticker, files)
+        return files

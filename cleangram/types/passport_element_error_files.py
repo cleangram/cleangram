@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 from typing import List
 
 from .passport_element_error import PassportElementError
@@ -27,9 +27,8 @@ class PassportElementErrorFiles(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default='')
+    source: str = field(default="")
     """Error source, must be files"""
 
     def __post_init__(self):
         self.source = "files"
-    

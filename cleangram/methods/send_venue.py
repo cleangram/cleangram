@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, Union
+from typing import Dict, Optional, TYPE_CHECKING, Union
 
 from ..types import (
     ForceReply,
@@ -12,6 +12,10 @@ from ..types import (
     Response,
 )
 from .base import TelegramMethod
+from ..utils import fit
+
+if TYPE_CHECKING:
+    from ..client import BaseBot
 
 
 @dataclass
@@ -76,3 +80,13 @@ class SendVenue(TelegramMethod, response=Response[Message]):
     """Additional interface options. A JSON-serialized object for
     an inline keyboard, custom reply keyboard, instructions to
     remove reply keyboard or to force a reply from the user."""
+
+    def preset(self, bot: BaseBot):
+        self.disable_notification = fit(
+            self.disable_notification, bot.disable_notification
+        )
+        self.protect_content = fit(self.protect_content, bot.protect_content)
+        self.allow_sending_without_reply = fit(
+            self.allow_sending_without_reply, bot.allow_sending_without_reply
+        )
+        return super().preset(bot)

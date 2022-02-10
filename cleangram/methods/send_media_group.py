@@ -1,23 +1,23 @@
 from __future__ import annotations
 
-import secrets
-
 from dataclasses import dataclass, field
-from typing import List, Optional, Union, TYPE_CHECKING, Dict
+from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 from ..types import (
+    InputFile,
     InputMediaAudio,
     InputMediaDocument,
     InputMediaPhoto,
     InputMediaVideo,
     Message,
     Response,
-    InputFile,
 )
 from .base import TelegramMethod
+from ..utils import attach
+from ..utils import fit
 
 if TYPE_CHECKING:
-    from cleangram.client import BaseBot
+    from ..client import BaseBot
 
 
 @dataclass
@@ -57,10 +57,15 @@ class SendMediaGroup(TelegramMethod, response=Response[List[Message]]):
     specified replied-to message is not found"""
 
     def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
-        files = {}
+        self.disable_notification = fit(
+            self.disable_notification, bot.disable_notification
+        )
+        self.protect_content = fit(self.protect_content, bot.protect_content)
+        self.allow_sending_without_reply = fit(
+            self.allow_sending_without_reply, bot.allow_sending_without_reply
+        )
+        files = super().preset(bot)
         for media in self.media:
-            if isinstance(media.media, InputFile):
-                attach = secrets.token_urlsafe(6)
-                files[attach] = media.media
-                media.media = f"attach://{attach}"
+            media.media = attach(media.media, files)
+            media.parse_mode = media.parse_mode or bot.parse_mode
         return files

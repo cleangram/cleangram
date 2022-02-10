@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 
 
 from .bot_command_scope import BotCommandScope
@@ -14,9 +14,8 @@ class BotCommandScopeAllChatAdministrators(BotCommandScope):
     Reference: https://core.telegram.org/bots/api#botcommandscopeallchatadministrators
     """
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Scope type, must be all_chat_administrators"""
 
     def __post_init__(self):
         self.type_ = "all_chat_administrators"
-    

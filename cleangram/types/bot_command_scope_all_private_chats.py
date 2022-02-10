@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 
 
 from .bot_command_scope import BotCommandScope
@@ -14,9 +14,8 @@ class BotCommandScopeAllPrivateChats(BotCommandScope):
     Reference: https://core.telegram.org/bots/api#botcommandscopeallprivatechats
     """
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Scope type, must be all_private_chats"""
 
     def __post_init__(self):
         self.type_ = "all_private_chats"
-    

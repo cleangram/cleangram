@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 from typing import Union
 
 from .bot_command_scope import BotCommandScope
@@ -21,9 +21,8 @@ class BotCommandScopeChatMember(BotCommandScope):
     user_id: int
     """Unique identifier of the target user"""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Scope type, must be chat_member"""
 
     def __post_init__(self):
         self.type_ = "chat_member"
-    

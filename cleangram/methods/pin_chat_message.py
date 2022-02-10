@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, Union
+from typing import Dict, Optional, TYPE_CHECKING, Union
 
 from ..types import Response
 from .base import TelegramMethod
+from ..utils import fit
+
+if TYPE_CHECKING:
+    from ..client import BaseBot
 
 
 @dataclass
@@ -31,3 +35,9 @@ class PinChatMessage(TelegramMethod, response=Response[bool]):
     """Pass True, if it is not necessary to send a notification to
     all chat members about the new pinned message. Notifications
     are always disabled in channels and private chats."""
+
+    def preset(self, bot: BaseBot):
+        self.disable_notification = fit(
+            self.disable_notification, bot.disable_notification
+        )
+        return super().preset(bot)

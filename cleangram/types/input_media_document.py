@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
-from typing import List, Optional, Union
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 from .input_file import InputFile
 from .input_media import InputMedia
@@ -52,9 +52,8 @@ class InputMediaDocument(InputMedia):
     detection for files uploaded using multipart/form-data.
     Always True, if the document is sent as part of an album."""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Type of the result, must be document"""
 
     def __post_init__(self):
         self.type_ = "document"
-    

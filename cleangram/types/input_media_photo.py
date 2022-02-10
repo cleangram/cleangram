@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
-from typing import List, Optional, Union
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 from .input_file import InputFile
 from .input_media import InputMedia
@@ -35,9 +35,8 @@ class InputMediaPhoto(InputMedia):
     """Optional. List of special entities that appear in the
     caption, which can be specified instead of parse_mode"""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Type of the result, must be photo"""
 
     def __post_init__(self):
         self.type_ = "photo"
-    

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
-from typing import List, Optional, Union
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 from .input_file import InputFile
 from .input_media import InputMedia
@@ -57,9 +57,8 @@ class InputMediaAnimation(InputMedia):
     duration: Optional[int] = field(default=None)
     """Optional. Animation duration in seconds"""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Type of the result, must be animation"""
 
     def __post_init__(self):
         self.type_ = "animation"
-    
