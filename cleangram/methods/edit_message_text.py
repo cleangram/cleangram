@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List, Optional, Union
+from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 from ..types import InlineKeyboardMarkup, Message, MessageEntity, Response
 from .base import TelegramMethod
+from ..utils import fit
+
+if TYPE_CHECKING:
+    from ..client import BaseBot
 
 
 @dataclass
@@ -47,3 +51,10 @@ class EditMessageText(TelegramMethod, response=Response[Union[Message, bool]]):
 
     reply_markup: Optional[InlineKeyboardMarkup] = field(default=None)
     """A JSON-serialized object for an inline keyboard."""
+
+    def preset(self, bot: BaseBot):
+        self.parse_mode = fit(self.parse_mode, bot.parse_mode)
+        self.disable_web_page_preview = fit(
+            self.disable_web_page_preview, bot.disable_web_page_preview
+        )
+        return super().preset(bot)

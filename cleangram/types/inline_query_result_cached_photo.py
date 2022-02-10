@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
-from typing import List, Optional
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, TYPE_CHECKING
 
 from .inline_keyboard_markup import InlineKeyboardMarkup
 from .inline_query_result import InlineQueryResult
@@ -51,9 +51,8 @@ class InlineQueryResultCachedPhoto(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     photo"""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Type of the result, must be photo"""
 
     def __post_init__(self):
         self.type_ = "photo"
-    

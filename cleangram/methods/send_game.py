@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Dict, Optional, TYPE_CHECKING
 
 from ..types import InlineKeyboardMarkup, Message, Response
 from .base import TelegramMethod
+from ..utils import fit
+
+if TYPE_CHECKING:
+    from ..client import BaseBot
 
 
 @dataclass
@@ -42,3 +46,13 @@ class SendGame(TelegramMethod, response=Response[Message]):
     """A JSON-serialized object for an inline keyboard. If empty,
     one 'Play game_title' button will be shown. If not empty,
     the first button must launch the game."""
+
+    def preset(self, bot: BaseBot):
+        self.disable_notification = fit(
+            self.disable_notification, bot.disable_notification
+        )
+        self.protect_content = fit(self.protect_content, bot.protect_content)
+        self.allow_sending_without_reply = fit(
+            self.allow_sending_without_reply, bot.allow_sending_without_reply
+        )
+        return super().preset(bot)

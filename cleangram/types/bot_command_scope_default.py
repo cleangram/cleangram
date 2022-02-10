@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 
 
 from .bot_command_scope import BotCommandScope
@@ -15,9 +15,8 @@ class BotCommandScopeDefault(BotCommandScope):
     Reference: https://core.telegram.org/bots/api#botcommandscopedefault
     """
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Scope type, must be default"""
 
     def __post_init__(self):
         self.type_ = "default"
-    

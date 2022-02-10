@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
-from typing import List, Optional, Union
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, TYPE_CHECKING, Union
 
 from .input_file import InputFile
 from .input_media import InputMedia
@@ -56,9 +56,8 @@ class InputMediaAudio(InputMedia):
     title: Optional[str] = field(default=None)
     """Optional. Title of the audio"""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Type of the result, must be audio"""
 
     def __post_init__(self):
         self.type_ = "audio"
-    

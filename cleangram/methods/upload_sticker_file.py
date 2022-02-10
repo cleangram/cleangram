@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-
+from typing import Dict, TYPE_CHECKING
 
 from ..types import File, InputFile, Response
 from .base import TelegramMethod
+from ..utils import attach
+from ..utils import fit
+
+if TYPE_CHECKING:
+    from ..client import BaseBot
 
 
 @dataclass
@@ -25,3 +30,8 @@ class UploadStickerFile(TelegramMethod, response=Response[File]):
     """PNG image with the sticker, must be up to 512 kilobytes in
     size, dimensions must not exceed 512px, and either width or
     height must be exactly 512px. More info on Sending Files »"""
+
+    def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
+        files = super().preset(bot)
+        self.png_sticker = attach(self.png_sticker, files)
+        return files

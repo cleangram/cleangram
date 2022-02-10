@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 from typing import Optional
 
 from .inline_keyboard_markup import InlineKeyboardMarkup
@@ -64,9 +64,8 @@ class InlineQueryResultVenue(InlineQueryResult):
     thumb_height: Optional[int] = field(default=None)
     """Optional. Thumbnail height"""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Type of the result, must be venue"""
 
     def __post_init__(self):
         self.type_ = "venue"
-    

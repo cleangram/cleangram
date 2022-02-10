@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 from typing import Union
 
 from .bot_command_scope import BotCommandScope
@@ -18,9 +18,8 @@ class BotCommandScopeChat(BotCommandScope):
     """Unique identifier for the target chat or username of the
     target supergroup (in the format @supergroupusername)"""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Scope type, must be chat"""
 
     def __post_init__(self):
         self.type_ = "chat"
-    

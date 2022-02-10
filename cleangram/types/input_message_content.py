@@ -18,6 +18,6 @@ class InputMessageContent(TelegramType):
         - InputVenueMessageContent
         - InputContactMessageContent
         - InputInvoiceMessageContent
-    
+
     Reference: https://core.telegram.org/bots/api#inputmessagecontent
     """

@@ -19,6 +19,6 @@ class ChatMember(TelegramType):
         - ChatMemberRestricted
         - ChatMemberLeft
         - ChatMemberBanned
-    
+
     Reference: https://core.telegram.org/bots/api#chatmember
     """

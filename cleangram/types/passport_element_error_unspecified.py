@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 
 
 from .passport_element_error import PassportElementError
@@ -24,9 +24,8 @@ class PassportElementErrorUnspecified(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default='')
+    source: str = field(default="")
     """Error source, must be unspecified"""
 
     def __post_init__(self):
         self.source = "unspecified"
-    

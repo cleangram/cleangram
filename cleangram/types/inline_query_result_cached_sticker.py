@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, field
 from typing import Optional
 
 from .inline_keyboard_markup import InlineKeyboardMarkup
@@ -31,9 +31,8 @@ class InlineQueryResultCachedSticker(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     sticker"""
 
-    type_: str = field(default='')
+    type_: str = field(default="")
     """Type of the result, must be sticker"""
 
     def __post_init__(self):
         self.type_ = "sticker"
-    

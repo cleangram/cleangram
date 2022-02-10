@@ -17,4 +17,5 @@ class TelegramMethod:
         cls.__response__ = kwargs.get("response")
 
     def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
-        return {}
+        files: Dict[str, InputFile] = {}
+        return files
