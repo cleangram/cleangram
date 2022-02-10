@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, TYPE_CHECKING, Union
+from typing import Dict, Union
 
 from ..types import InputFile, Response
 from .base import TelegramMethod
-from ..utils import attach
-from ..utils import fit
 
-if TYPE_CHECKING:
-    from ..client import BaseBot
+from ..utils import Presets, attach
 
 
 @dataclass
@@ -31,7 +28,7 @@ class SetChatPhoto(TelegramMethod, response=Response[bool]):
     photo: InputFile
     """New chat photo, uploaded using multipart/form-data"""
 
-    def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
-        files = super().preset(bot)
+    def preset(self, presets: Presets) -> Dict[str, InputFile]:
+        files = super(SetChatPhoto, self).preset(presets)
         self.photo = attach(self.photo, files)
         return files

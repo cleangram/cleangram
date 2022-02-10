@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, TYPE_CHECKING
+from typing import Dict, List, Optional
 
 from ..types import InputFile, Response
 from .base import TelegramMethod
-from ..utils import attach
-from ..utils import fit
 
-if TYPE_CHECKING:
-    from ..client import BaseBot
+from ..utils import Presets, attach
 
 
 @dataclass
@@ -59,7 +56,7 @@ class SetWebhook(TelegramMethod, response=Response[bool]):
     drop_pending_updates: Optional[bool] = field(default=None)
     """Pass True to drop all pending updates"""
 
-    def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
-        files = super().preset(bot)
+    def preset(self, presets: Presets) -> Dict[str, InputFile]:
+        files = super(SetWebhook, self).preset(presets)
         self.certificate = attach(self.certificate, files)
         return files

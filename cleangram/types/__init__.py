@@ -1,5 +1,6 @@
 from .animation import Animation
 from .audio import Audio
+from .base import TelegramType
 from .bot_command import BotCommand
 from .bot_command_scope import BotCommandScope
 from .bot_command_scope_all_chat_administrators import (
@@ -117,7 +118,6 @@ from .shipping_query import ShippingQuery
 from .sticker import Sticker
 from .sticker_set import StickerSet
 from .successful_payment import SuccessfulPayment
-from .base import TelegramType
 from .update import Update
 from .user import User
 from .user_profile_photos import UserProfilePhotos
@@ -130,7 +130,6 @@ from .voice_chat_participants_invited import VoiceChatParticipantsInvited
 from .voice_chat_scheduled import VoiceChatScheduled
 from .voice_chat_started import VoiceChatStarted
 from .webhook_info import WebhookInfo
-
 
 __all__ = [
     "Animation",

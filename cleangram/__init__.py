@@ -1,8 +1,7 @@
-from ._version import __version__, __bot_api__
-from . import client, application, types, methods
-from .client import *
+from . import application, client, methods, types
+from ._version import __bot_api__, __version__
 from .application import *
-
+from .client import *
 
 __all__ = [
     "__version__",

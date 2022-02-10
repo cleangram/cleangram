@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, TYPE_CHECKING, Union
+from typing import Dict, List, Optional, Union
 
 from ..types import (
     InputFile,
@@ -13,11 +13,8 @@ from ..types import (
     Response,
 )
 from .base import TelegramMethod
-from ..utils import attach
-from ..utils import fit
 
-if TYPE_CHECKING:
-    from ..client import BaseBot
+from ..utils import Presets, attach
 
 
 @dataclass
@@ -56,16 +53,12 @@ class SendMediaGroup(TelegramMethod, response=Response[List[Message]]):
     """Pass True, if the message should be sent even if the
     specified replied-to message is not found"""
 
-    def preset(self, bot: BaseBot) -> Dict[str, InputFile]:
-        self.disable_notification = fit(
-            self.disable_notification, bot.disable_notification
-        )
-        self.protect_content = fit(self.protect_content, bot.protect_content)
-        self.allow_sending_without_reply = fit(
-            self.allow_sending_without_reply, bot.allow_sending_without_reply
-        )
-        files = super().preset(bot)
+    def preset(self, presets: Presets) -> Dict[str, InputFile]:
+        presets.disable_notification(self)
+        presets.protect_content(self)
+        presets.allow_sending_without_reply(self)
+        files = super(SendMediaGroup, self).preset(presets)
         for media in self.media:
             media.media = attach(media.media, files)
-            media.parse_mode = media.parse_mode or bot.parse_mode
+            presets.parse_mode(media)
         return files

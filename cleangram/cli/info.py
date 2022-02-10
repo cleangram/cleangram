@@ -1,4 +1,4 @@
-from .._version import __version__, __bot_api__
+from .._version import __bot_api__, __version__
 
 
 def print_info():

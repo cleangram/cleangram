@@ -1,6 +1,6 @@
-from typing import Union, Dict, Optional
-
 import secrets
+from typing import Dict, Optional, Union
+
 from ..types import InputFile
 
 
