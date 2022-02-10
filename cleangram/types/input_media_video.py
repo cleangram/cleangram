@@ -60,5 +60,9 @@ class InputMediaVideo(InputMedia):
     """Optional. Pass True, if the uploaded video is suitable for
     streaming"""
 
-    type_: str = field(default="video")
+    type_: str = field(default='')
     """Type of the result, must be video"""
+
+    def __post_init__(self):
+        self.type_ = "video"
+    

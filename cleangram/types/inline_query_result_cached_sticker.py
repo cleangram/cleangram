@@ -31,5 +31,9 @@ class InlineQueryResultCachedSticker(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     sticker"""
 
-    type_: str = field(default="sticker")
+    type_: str = field(default='')
     """Type of the result, must be sticker"""
+
+    def __post_init__(self):
+        self.type_ = "sticker"
+    

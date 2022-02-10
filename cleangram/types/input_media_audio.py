@@ -56,5 +56,9 @@ class InputMediaAudio(InputMedia):
     title: Optional[str] = field(default=None)
     """Optional. Title of the audio"""
 
-    type_: str = field(default="audio")
+    type_: str = field(default='')
     """Type of the result, must be audio"""
+
+    def __post_init__(self):
+        self.type_ = "audio"
+    

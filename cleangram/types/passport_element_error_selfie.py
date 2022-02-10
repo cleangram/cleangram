@@ -26,5 +26,9 @@ class PassportElementErrorSelfie(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default="selfie")
+    source: str = field(default='')
     """Error source, must be selfie"""
+
+    def __post_init__(self):
+        self.source = "selfie"
+    

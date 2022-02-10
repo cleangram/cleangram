@@ -49,5 +49,9 @@ class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
     """Optional. Content of the message to be sent instead of the
     video animation"""
 
-    type_: str = field(default="mpeg4_gif")
+    type_: str = field(default='')
     """Type of the result, must be mpeg4_gif"""
+
+    def __post_init__(self):
+        self.type_ = "mpeg4_gif"
+    

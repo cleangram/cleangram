@@ -17,6 +17,6 @@ class InputMedia(TelegramType):
         - InputMediaAudio
         - InputMediaPhoto
         - InputMediaVideo
-
+    
     Reference: https://core.telegram.org/bots/api#inputmedia
     """

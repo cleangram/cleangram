@@ -27,5 +27,9 @@ class PassportElementErrorFile(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default="file")
+    source: str = field(default='')
     """Error source, must be file"""
+
+    def __post_init__(self):
+        self.source = "file"
+    

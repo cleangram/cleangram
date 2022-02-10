@@ -24,5 +24,9 @@ class PassportElementErrorUnspecified(PassportElementError):
     message: str
     """Error message"""
 
-    source: str = field(default="unspecified")
+    source: str = field(default='')
     """Error source, must be unspecified"""
+
+    def __post_init__(self):
+        self.source = "unspecified"
+    
