@@ -6,7 +6,7 @@ from typing import TypeVar, cast
 from dataclass_factory import Factory, Schema
 
 from ..exceptions import check
-from ..env import env
+from cleangram.utils.env import env
 from ..http.httpx_ import HttpX
 from ..methods import TelegramMethod
 from ..utils import Presets
@@ -23,13 +23,14 @@ class BaseBot(abc.ABC):
         disable_notification: bool = None,
         disable_web_page_preview: bool = None,
         protect_content: bool = None,
-        endpoint: str = env.TELEGRAM_API_ENDPOINT,
+        api: str = env.TELEGRAM_BOT_API,
+        presets: Presets = None
     ) -> None:
         self.__token = token
-        self.__endpoint = endpoint
+        self.__api = api
         self.__http = HttpX()
         self.__factory = Factory(default_schema=Schema(omit_default=True))
-        self.__presets = Presets(
+        self.__presets = presets or Presets(
             _parse_mode=parse_mode,
             _disable_web_page_preview=disable_web_page_preview,
             _protect_content=protect_content,
@@ -55,7 +56,7 @@ class BaseBot(abc.ABC):
             raw = await self.__http(url, data, files, timeout)
         response = self.__factory.load(raw, call.__response__)
         check(response)
-        return cast(T, response)
+        return cast(T, response.result)
 
     def _base_url(self, call: TelegramMethod) -> str:
-        return f"{self.__endpoint}/bot{self.__token}/{call.__class__.__name__}"
+        return f"{self.__api}/bot{self.__token}/{call.__class__.__name__}"

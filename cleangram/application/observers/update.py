@@ -1,4 +1,8 @@
-from typing import Any, Callable, Generic, List, TypeVar
+from dataclasses import dataclass
+
+import functools
+
+from typing import Any, Callable, Generic, List, TypeVar, Awaitable, Tuple
 
 from cleangram.application.observers.base import Observer
 
@@ -7,14 +11,31 @@ from ...client import Bot
 U = TypeVar("U")
 
 
-class UpdateObserver(Observer, Generic[U]):
-    def __init__(self):
-        self._handlers: List[Callable[[U, Any], Any]] = []
+@dataclass
+class Handler:
+    name: str
+    handler: Callable
+    filters: Tuple[Any]
 
-    def __call__(self, handler: Callable[[U, Any], Any]):
-        self._handlers.append(handler)
+
+class HandlerObserver(Observer, Generic[U]):
+    def __init__(self):
+        self.__handlers: List = []
+
+    def __call__(self, *filters):
+        def wrap(handler):
+            return self.append(handler, *filters)
+        return wrap
+
+    def append(self, handler: Callable, *filters, **kwargs):
+        self.__handlers.append(Handler(
+            name=handler.__name__,
+            handler=handler,
+            filters=filters
+        ))
+        return handler
 
     async def notify(self, event: U, bot: Bot):
-        for handler in self._handlers:
-            if resp := await handler(event, bot):
-                return resp
+        for handler in self.__handlers:
+            if all([f(event) for f in handler.filters]):
+                return await handler.handler(event, bot) or True
