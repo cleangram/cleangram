@@ -1,30 +1,17 @@
-import os
-from typing import List
-
-from starlette.applications import Starlette
-
-from ..env import env
-from .router import Router
+from .blueprint import Blueprint
 from .workers import Polling
+from ..utils import Presets
 
 
-class App(Router):
+class App(Blueprint):
     def __init__(
         self,
-        token: str = env.TELEGRAM_BOT_TOKEN,
-        webhook_endpoint: str = env.WEBHOOK_ENDPOINT,
-        telegram_endpoint: str = env.TELEGRAM_API_ENDPOINT,
-        **router_kwargs
+        presets: Presets = None,
+        **kwargs
     ) -> None:
-        self.token = token
-        super(App, self).__init__(**router_kwargs)
+        self.__presets = presets or Presets()
+        super(App, self).__init__(**kwargs)
 
     @property
-    def polling(self):
-        return Polling(self)
-
-    @property
-    def st(self) -> Starlette:
-        st = Starlette()
-
-        return st
+    def polling(self) -> Polling:
+        return Polling(self, self.__presets)
