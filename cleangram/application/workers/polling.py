@@ -5,10 +5,10 @@ from typing import List, TYPE_CHECKING
 import asyncio
 import logging
 
-from cleangram.application.blueprint import Blueprint
-from cleangram.client import Bot
-from cleangram.methods import TelegramMethod
-from cleangram.utils import Presets
+from ...application.blueprint import Blueprint
+from ...client import Bot
+from ...methods import TelegramMethod
+from ...utils import Presets
 
 log = logging.getLogger(__name__)
 

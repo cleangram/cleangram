@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from cleangram.types import Update, TelegramType
+from ..types import Update, TelegramType
 
 
 def get_event_and_type(update: Update) -> Tuple[TelegramType, str]:

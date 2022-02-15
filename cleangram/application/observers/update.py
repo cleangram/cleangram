@@ -4,7 +4,7 @@ import functools
 
 from typing import Any, Callable, Generic, List, TypeVar, Awaitable, Tuple
 
-from cleangram.application.observers.base import Observer
+from .base import Observer
 
 from ...client import Bot
 
