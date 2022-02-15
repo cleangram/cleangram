@@ -24,7 +24,7 @@ class BaseBot(abc.ABC):
         disable_web_page_preview: bool = None,
         protect_content: bool = None,
         api: str = env.TELEGRAM_BOT_API,
-        presets: Presets = None
+        presets: Presets = None,
     ) -> None:
         self.__token = token
         self.__api = api

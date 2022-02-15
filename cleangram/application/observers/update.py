@@ -15,7 +15,7 @@ U = TypeVar("U")
 class Handler:
     name: str
     handler: Callable
-    filters: Tuple[Any]
+    filters: Any
 
 
 class HandlerObserver(Observer, Generic[U]):
@@ -25,14 +25,13 @@ class HandlerObserver(Observer, Generic[U]):
     def __call__(self, *filters):
         def wrap(handler):
             return self.append(handler, *filters)
+
         return wrap
 
     def append(self, handler: Callable, *filters, **kwargs):
-        self.__handlers.append(Handler(
-            name=handler.__name__,
-            handler=handler,
-            filters=filters
-        ))
+        self.__handlers.append(
+            Handler(name=handler.__name__, handler=handler, filters=filters)
+        )
         return handler
 
     async def notify(self, event: U, bot: Bot):
