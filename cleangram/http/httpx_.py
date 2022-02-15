@@ -4,7 +4,7 @@ import json
 
 import httpx
 
-from cleangram.http.base import Http
+from ..http.base import Http
 
 
 class HttpX(Http):

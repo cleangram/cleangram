@@ -6,7 +6,7 @@ from typing import TypeVar, cast
 from dataclass_factory import Factory, Schema
 
 from ..exceptions import check
-from cleangram.utils.env import env
+from ..utils.env import env
 from ..http.httpx_ import HttpX
 from ..methods import TelegramMethod
 from ..utils import Presets
