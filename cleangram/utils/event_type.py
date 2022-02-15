@@ -32,3 +32,4 @@ def get_event_and_type(update: Update) -> Tuple[TelegramType, str]:
         return chat_member, "chat_member"
     elif chat_join_request := update.chat_join_request:
         return chat_join_request, "chat_join_request"
+    raise NameError("Update event not found")

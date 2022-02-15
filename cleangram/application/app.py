@@ -4,11 +4,7 @@ from ..utils import Presets
 
 
 class App(Blueprint):
-    def __init__(
-        self,
-        presets: Presets = None,
-        **kwargs
-    ) -> None:
+    def __init__(self, presets: Presets = None, **kwargs) -> None:
         self.__presets = presets or Presets()
         super(App, self).__init__(**kwargs)
 

@@ -14,11 +14,7 @@ log = logging.getLogger(__name__)
 
 
 class Polling:
-    def __init__(
-        self,
-        blueprint: Blueprint,
-        presets: Presets
-    ) -> None:
+    def __init__(self, blueprint: Blueprint, presets: Presets) -> None:
         self.__running: bool = False
         self.__blueprint: Blueprint = blueprint
         self.__presets: Presets = presets
@@ -33,7 +29,9 @@ class Polling:
             await self.__blueprint.shutdown.notify()
 
     async def notify(self, update, bot):
-        if isinstance((method := await self.__blueprint.notify(update, bot)), TelegramMethod):
+        if isinstance(
+            (method := await self.__blueprint.notify(update, bot)), TelegramMethod
+        ):
             await bot(method)
 
     async def _listen_updates(self, token: str):
