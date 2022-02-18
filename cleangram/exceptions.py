@@ -6,6 +6,11 @@ from typing import Optional, Dict
 from .types import Response
 
 
+class InvalidToken(Exception):
+    def __init__(self, desc):
+        self.desc = desc
+
+
 class TelegramError(Exception):
     def __init__(self, response: Response):
         self.code: Optional[int] = response.error_code

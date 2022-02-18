@@ -5,13 +5,18 @@ from typing import TypeVar, cast
 
 from dataclass_factory import Factory, Schema
 
-from ..exceptions import check
+from ..exceptions import check, InvalidToken
 from ..utils.env import env
 from ..http.httpx_ import HttpX
 from ..methods import TelegramMethod
 from ..utils import Presets
 
 T = TypeVar("T")
+
+def validate_token(token: str):
+    if not token:
+        raise InvalidToken(f"Toker are empty")
+    return token
 
 
 class BaseBot(abc.ABC):
@@ -23,7 +28,7 @@ class BaseBot(abc.ABC):
         disable_notification: bool = None,
         disable_web_page_preview: bool = None,
         protect_content: bool = None,
-        api: str = env.TELEGRAM_BOT_API,
+        api: str = env.TG_API,
         presets: Presets = None,
     ) -> None:
         self.__token = token

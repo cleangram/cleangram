@@ -1,11 +1,13 @@
+from typing import List
+
 import os
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, field
 
 
 @dataclass(frozen=True)
 class _Env:
-    TELEGRAM_BOT_TOKEN: str = ""
-    TELEGRAM_BOT_API: str = "https://api.telegram.org"
+    TG_TOKEN: str = ""
+    TG_API: str = "https://api.telegram.org"
     WEBHOOK_ENDPOINT: str = ""
 
 
