@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import os
 from dataclasses import dataclass, fields, field
@@ -8,6 +8,8 @@ from dataclasses import dataclass, fields, field
 class _Env:
     TG_TOKEN: str = ""
     TG_API: str = "https://api.telegram.org"
+    TG_LOCAL: bool = field(default=False)
+    TG_PARSE_MODE: Optional[str] = field(default=None)
     WEBHOOK_ENDPOINT: str = ""
 
 

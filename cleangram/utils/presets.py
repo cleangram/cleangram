@@ -1,10 +1,12 @@
 from dataclasses import dataclass, field
 from typing import Optional
 
+from .env import env
+
 
 @dataclass
 class Presets:
-    _parse_mode: Optional[str] = field(default=None)
+    _parse_mode: Optional[str] = field(default=env.TG_PARSE_MODE)
     _disable_web_page_preview: Optional[bool] = field(default=None)
     _allow_sending_without_reply: Optional[bool] = field(default=None)
     _disable_notification: Optional[bool] = field(default=None)

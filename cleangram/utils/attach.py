@@ -1,7 +1,7 @@
 import secrets
 from typing import Dict, Optional, Union
 
-from ..types import InputFile
+from ..base.types import InputFile
 
 
 def attach(file: Optional[Union[InputFile, str]], files: Dict[str, InputFile]):

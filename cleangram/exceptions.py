@@ -3,7 +3,7 @@ from http import HTTPStatus
 from dataclasses import dataclass, field
 from typing import Optional, Dict
 
-from .types import Response
+from .base.types import Response
 
 
 class InvalidToken(Exception):
@@ -43,6 +43,6 @@ error_types: Dict[int, type] = {
 
 def check(response: Response):
     if response.ok:
-        return
+        return response
     error: type = error_types.get(response.error_code or 0, TelegramError)
     raise error(response)
