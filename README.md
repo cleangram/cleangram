@@ -3,6 +3,7 @@
 [![Channel](https://img.shields.io/badge/dynamic/xml?color=blue&label=Channel&query=.%2F%2F*[%40class%3D%27tgme_page_extra%27]&url=https%3A%2F%2Ft.me%2Fcleangram&logo=telegram&link=https://t.me/cleangram&style=flat-square)](https://t.me/+_IGqbnmF5fZmZDky)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 # Cleangram
+Simple telegram bot api wrapper
 
 ## Getting Started
 
@@ -10,8 +11,16 @@
 pip install cleangram
 ```
 
-### Echo bot
+## Environments
 
+|          var          | type        |         example          |
+|:---------------------:|-------------|:------------------------:|
+| `TELEGRAM_BOT_TOKEN`  | `str`       |         123:Abc          |
+|  `TELEGRAM_BOT_API`   | `str`       | https://api.telegram.org |
+
+
+
+### Echo bot
 ```python
 from cleangram import App, Bot, Message, env
 
@@ -23,5 +32,5 @@ async def echo(msg: Message, bot: Bot):
     await bot.send_message(msg.chat.id, msg.text)
 
 
-tg.polling.run(env.TELEGRAM_BOT_TOKEN)
+tg.polling.run(env.TG_TOKEN)
 ```
