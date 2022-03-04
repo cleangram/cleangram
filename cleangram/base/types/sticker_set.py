@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+from .base import TelegramType
 from .photo_size import PhotoSize
 from .sticker import Sticker
-from .base import TelegramType
 
 
 @dataclass

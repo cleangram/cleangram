@@ -3,9 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import ClassVar, Dict, Type
 
-from ..types import InputFile, Response
-
 from ...utils import Presets
+from ..types import InputFile, Response
 
 
 @dataclass

@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List
 
-from .labeled_price import LabeledPrice
 from .base import TelegramType
+from .labeled_price import LabeledPrice
 
 
 @dataclass

@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from .photo_size import PhotoSize
 from .base import TelegramType
+from .photo_size import PhotoSize
 
 
 @dataclass

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 from ..types import Response, StickerSet
 from .base import TelegramMethod
 

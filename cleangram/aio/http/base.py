@@ -1,10 +1,7 @@
-from abc import ABC
-
 import abc
-
-from typing import Dict
-
 import contextlib
+from abc import ABC
+from typing import Dict
 
 from ...base.http.request import Request
 

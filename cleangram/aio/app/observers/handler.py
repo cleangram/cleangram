@@ -1,20 +1,29 @@
-import contextlib
+from __future__ import annotations
 
 import functools
-
 import inspect
+from typing import TypeVar, TYPE_CHECKING, Type
 
-from typing import Generic, TypeVar
+from ..utils import check_filters
+from ....base import TelegramType
+from ....base.app.blueprint import BaseBlueprint
+from ....base.app.observers import BaseHandlerObserver
+from .manager import ContextManagerObserver
 
-from ...client.bot import Bot
 
 E = TypeVar("E")
 
 
-class HandlerObserver(Generic[E]):
-    def __init__(self):
-        self.__handlers = []
-        self.__middlewares = []
+class HandlerObserver(BaseHandlerObserver):
+    def __init__(
+        self,
+        owner: BaseBlueprint,
+        event_type: Type[TelegramType]
+    ):
+        self.__owner = owner
+        self.middleware: ContextManagerObserver = ContextManagerObserver()
+        self.__handlers: list = []
+        self.__event: Type[TelegramType] = event_type
 
     def __call__(self, *filters, **flags):
         def func(handler):
@@ -27,25 +36,15 @@ class HandlerObserver(Generic[E]):
         self.__handlers.append((handler, filters, flags))
         return handler
 
-    async def notify(self, event: E, bot: Bot, mds):
+    async def notify(self, event: E, **kwargs):
         for handler, filters, flags in self.__handlers:
-            if all(
-                [
-                    await f(event) if inspect.iscoroutinefunction(f) else f(event)
-                    for f in filters
-                ]
-            ):
-                async with contextlib.AsyncExitStack() as stack:  # type: contextlib.AsyncExitStack
-                    mmds = [
-                        await stack.enter_async_context(md())
-                        for md in self.__middlewares
-                    ]
-                    handler = functools.partial(handler, **mds[0])
-                    processed = handler(event, bot)
-                    if inspect.iscoroutine(processed):
-                        processed = await processed
-                    return processed
-
-    def middleware(self, gen):
-        self.__middlewares.append(contextlib.asynccontextmanager(gen))
-        return gen
+            if (
+                fil_kwargs := await check_filters(event, filters, **kwargs)
+            ) is not None:
+                async with self.middleware.notify(event, **kwargs) as mw_args:
+                    handler = functools.partial(handler, **kwargs, **mw_args, **fil_kwargs)
+                    if processed := handler(event):
+                        if inspect.iscoroutine(processed):
+                            processed = await processed
+                        return processed
+                return True

@@ -1,7 +1,6 @@
-from http import HTTPStatus
-
 from dataclasses import dataclass, field
-from typing import Optional, Dict
+from http import HTTPStatus
+from typing import Dict, Optional
 
 from .base.types import Response
 

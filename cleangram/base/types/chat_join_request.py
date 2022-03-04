@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
+from .base import TelegramType
 from .chat import Chat
 from .chat_invite_link import ChatInviteLink
-from .base import TelegramType
 from .user import User
 
 

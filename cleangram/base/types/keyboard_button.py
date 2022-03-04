@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from .keyboard_button_poll_type import KeyboardButtonPollType
 from .base import TelegramType
+from .keyboard_button_poll_type import KeyboardButtonPollType
 
 
 @dataclass

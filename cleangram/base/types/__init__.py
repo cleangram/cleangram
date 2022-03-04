@@ -1,14 +1,15 @@
 from .animation import Animation
 from .audio import Audio
+from .base import TelegramType
 from .bot_command import BotCommand
 from .bot_command_scope import BotCommandScope
-from .bot_command_scope_all_chat_administrators import (
-    BotCommandScopeAllChatAdministrators,
-)
+from .bot_command_scope_all_chat_administrators import \
+    BotCommandScopeAllChatAdministrators
 from .bot_command_scope_all_group_chats import BotCommandScopeAllGroupChats
 from .bot_command_scope_all_private_chats import BotCommandScopeAllPrivateChats
 from .bot_command_scope_chat import BotCommandScopeChat
-from .bot_command_scope_chat_administrators import BotCommandScopeChatAdministrators
+from .bot_command_scope_chat_administrators import \
+    BotCommandScopeChatAdministrators
 from .bot_command_scope_chat_member import BotCommandScopeChatMember
 from .bot_command_scope_default import BotCommandScopeDefault
 from .callback_game import CallbackGame
@@ -45,9 +46,11 @@ from .inline_query_result import InlineQueryResult
 from .inline_query_result_article import InlineQueryResultArticle
 from .inline_query_result_audio import InlineQueryResultAudio
 from .inline_query_result_cached_audio import InlineQueryResultCachedAudio
-from .inline_query_result_cached_document import InlineQueryResultCachedDocument
+from .inline_query_result_cached_document import \
+    InlineQueryResultCachedDocument
 from .inline_query_result_cached_gif import InlineQueryResultCachedGif
-from .inline_query_result_cached_mpeg_4_gif import InlineQueryResultCachedMpeg4Gif
+from .inline_query_result_cached_mpeg_4_gif import \
+    InlineQueryResultCachedMpeg4Gif
 from .inline_query_result_cached_photo import InlineQueryResultCachedPhoto
 from .inline_query_result_cached_sticker import InlineQueryResultCachedSticker
 from .inline_query_result_cached_video import InlineQueryResultCachedVideo
@@ -93,12 +96,13 @@ from .passport_element_error_data_field import PassportElementErrorDataField
 from .passport_element_error_file import PassportElementErrorFile
 from .passport_element_error_files import PassportElementErrorFiles
 from .passport_element_error_front_side import PassportElementErrorFrontSide
-from .passport_element_error_reverse_side import PassportElementErrorReverseSide
+from .passport_element_error_reverse_side import \
+    PassportElementErrorReverseSide
 from .passport_element_error_selfie import PassportElementErrorSelfie
-from .passport_element_error_translation_file import PassportElementErrorTranslationFile
-from .passport_element_error_translation_files import (
-    PassportElementErrorTranslationFiles,
-)
+from .passport_element_error_translation_file import \
+    PassportElementErrorTranslationFile
+from .passport_element_error_translation_files import \
+    PassportElementErrorTranslationFiles
 from .passport_element_error_unspecified import PassportElementErrorUnspecified
 from .passport_file import PassportFile
 from .photo_size import PhotoSize
@@ -117,7 +121,6 @@ from .shipping_query import ShippingQuery
 from .sticker import Sticker
 from .sticker_set import StickerSet
 from .successful_payment import SuccessfulPayment
-from .base import TelegramType
 from .update import Update
 from .user import User
 from .user_profile_photos import UserProfilePhotos
@@ -130,7 +133,6 @@ from .voice_chat_participants_invited import VoiceChatParticipantsInvited
 from .voice_chat_scheduled import VoiceChatScheduled
 from .voice_chat_started import VoiceChatStarted
 from .webhook_info import WebhookInfo
-
 
 __all__ = [
     "Animation",

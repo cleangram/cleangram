@@ -1,6 +1,7 @@
+from functools import lru_cache
 from typing import Tuple
 
-from ..base.types import Update, TelegramType
+from ..base.types import TelegramType, Update
 
 
 def get_event_and_type(update: Update) -> Tuple[TelegramType, str]:

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-
 from .bot_command_scope import BotCommandScope
 
 

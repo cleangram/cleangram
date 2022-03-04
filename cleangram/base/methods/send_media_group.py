@@ -3,18 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Union
 
-from ..types import (
-    InputFile,
-    InputMediaAudio,
-    InputMediaDocument,
-    InputMediaPhoto,
-    InputMediaVideo,
-    Message,
-    Response,
-)
-from .base import TelegramMethod
-
 from ...utils import Presets, attach
+from ..types import (InputFile, InputMediaAudio, InputMediaDocument,
+                     InputMediaPhoto, InputMediaVideo, Message, Response)
+from .base import TelegramMethod
 
 
 @dataclass

@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
-from .location import Location
 from .base import TelegramType
+from .location import Location
 
 
 @dataclass

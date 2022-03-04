@@ -6,6 +6,7 @@ from .answer_shipping_query import AnswerShippingQuery
 from .approve_chat_join_request import ApproveChatJoinRequest
 from .ban_chat_member import BanChatMember
 from .ban_chat_sender_chat import BanChatSenderChat
+from .base import TelegramMethod
 from .close import Close
 from .copy_message import CopyMessage
 from .create_chat_invite_link import CreateChatInviteLink
@@ -61,7 +62,8 @@ from .send_venue import SendVenue
 from .send_video import SendVideo
 from .send_video_note import SendVideoNote
 from .send_voice import SendVoice
-from .set_chat_administrator_custom_title import SetChatAdministratorCustomTitle
+from .set_chat_administrator_custom_title import \
+    SetChatAdministratorCustomTitle
 from .set_chat_description import SetChatDescription
 from .set_chat_permissions import SetChatPermissions
 from .set_chat_photo import SetChatPhoto
@@ -75,13 +77,11 @@ from .set_sticker_set_thumb import SetStickerSetThumb
 from .set_webhook import SetWebhook
 from .stop_message_live_location import StopMessageLiveLocation
 from .stop_poll import StopPoll
-from .base import TelegramMethod
 from .unban_chat_member import UnbanChatMember
 from .unban_chat_sender_chat import UnbanChatSenderChat
 from .unpin_all_chat_messages import UnpinAllChatMessages
 from .unpin_chat_message import UnpinChatMessage
 from .upload_sticker_file import UploadStickerFile
-
 
 __all__ = [
     "AddStickerToSet",

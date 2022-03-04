@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from .shipping_address import ShippingAddress
 from .base import TelegramType
+from .shipping_address import ShippingAddress
 
 
 @dataclass

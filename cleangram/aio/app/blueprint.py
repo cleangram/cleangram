@@ -1,98 +1,96 @@
 from __future__ import annotations
 
 import contextlib
+from time import time
+from typing import Any, Generator, List, Set, Union, overload, Sequence, Optional, Dict
 
-from typing import List, Any, Union, Set, Generator
-
+from .observers.manager import ContextManagerObserver
+from .utils import check_filters
+from ...base import TelegramType
+from ...base.app.blueprint import BaseBlueprint
+from ...base.app.observers import BaseHandlerObserver
+from ...utils.event_type import get_event_and_type
+from ..client.bot import Bot
+from ..methods import TelegramMethod
+from ..types import (CallbackQuery, ChatJoinRequest, ChatMemberUpdated,
+                     ChosenInlineResult, InlineQuery, Message, Poll,
+                     PollAnswer, PreCheckoutQuery, ShippingQuery, Update)
 from .observers.event import EventObserver
 from .observers.handler import HandlerObserver
-from ..types import (
-    Message,
-    Update,
-    InlineQuery,
-    ChosenInlineResult,
-    CallbackQuery,
-    PreCheckoutQuery,
-    ShippingQuery,
-    Poll,
-    PollAnswer,
-    ChatMemberUpdated,
-    ChatJoinRequest,
-)
-from ..methods import TelegramMethod
-from ..client.bot import Bot
-from ...utils.event_type import get_event_and_type
 
 
-class Blueprint:
+class Blueprint(BaseBlueprint):
     def __init__(
         self,
-        *args: Any,
-        blueprints: List[Blueprint] = (),
-        middlewares: List = (),
-        **kwargs: Any,
+        name: str = "bp",
+        *filters,
+        **kwargs
     ) -> None:
-        self.__blueprints: List[Blueprint] = [self, *blueprints]
-        self.__middlewares = [*middlewares]
+        self.message = HandlerObserver(self, Message)
+        self.edited_message = HandlerObserver(self, Message)
+        self.channel_post = HandlerObserver(self, Message)
+        self.edited_channel_post = HandlerObserver(self, Message)
+        self.inline_query = HandlerObserver(self, InlineQuery)
+        self.chosen_inline_result = HandlerObserver(self, ChosenInlineResult)
+        self.callback_query = HandlerObserver(self, CallbackQuery)
+        self.shipping_query = HandlerObserver(self, ShippingQuery)
+        self.pre_checkout_query = HandlerObserver(self, PreCheckoutQuery)
+        self.poll = HandlerObserver(self, Poll)
+        self.poll_answer = HandlerObserver(self, PollAnswer)
+        self.my_chat_member = HandlerObserver(self, ChatMemberUpdated)
+        self.chat_member = HandlerObserver(self, ChatMemberUpdated)
+        self.chat_join_request = HandlerObserver(self, ChatJoinRequest)
 
-        self.message = HandlerObserver[Message]()
-        self.edited_message = HandlerObserver[Message]()
-        self.channel_post = HandlerObserver[Message]()
-        self.edited_channel_post = HandlerObserver[Message]()
-        self.inline_query = HandlerObserver[InlineQuery]()
-        self.chosen_inline_result = HandlerObserver[ChosenInlineResult]()
-        self.callback_query = HandlerObserver[CallbackQuery]()
-        self.shipping_query = HandlerObserver[ShippingQuery]()
-        self.pre_checkout_query = HandlerObserver[PreCheckoutQuery]()
-        self.poll = HandlerObserver[Poll]()
-        self.poll_answer = HandlerObserver[PollAnswer]()
-        self.my_chat_member = HandlerObserver[ChatMemberUpdated]()
-        self.chat_member = HandlerObserver[ChatMemberUpdated]()
-        self.chat_join_request = HandlerObserver[ChatJoinRequest]()
+        self.setup = EventObserver(self)
+        self.startup = EventObserver(self)
+        self.middleware = ContextManagerObserver()
+        self.shutdown = EventObserver(self)
+        self.destroy = EventObserver(self)
 
-        self.startup = EventObserver()
-        self.shutdown = EventObserver()
+        super().__init__(name, *filters, **kwargs)
 
-        self.__handler_observers = {
-            "message": self.message,
-            "edited_message": self.edited_message,
-            "channel_post": self.channel_post,
-            "edited_channel_post": self.edited_channel_post,
-            "inline_query": self.inline_query,
-            "chosen_inline_result": self.chosen_inline_result,
-            "callback_query": self.callback_query,
-            "shipping_query": self.shipping_query,
-            "pre_checkout_query": self.pre_checkout_query,
-            "poll": self.poll,
-            "poll_answer": self.poll_answer,
-            "my_chat_member": self.my_chat_member,
-            "chat_member": self.chat_member,
-            "chat_join_request": self.chat_join_request,
-        }
+    async def notify(self, update: Update, bot: Bot, **kwargs) -> Union[TelegramMethod, bool]:
+        start_time = time()
 
-    async def notify(
-        self, update: Update, bot: Bot
-    ) -> Union[TelegramMethod, bool, None]:
-        async with contextlib.AsyncExitStack() as stack:
-            mds = [await stack.enter_async_context(md()) for md in self.__middlewares]
-            event, event_type = get_event_and_type(update)
-            for router in self.__blueprints:
-                if method := await router.__handler_observers[event_type].notify(
-                    event, bot, mds
-                ):
-                    return method
+        event, type_ = get_event_and_type(update)
+        await self._notify_event(update, event, type_, bot=bot, **kwargs)
+
+        process_time = time() - start_time
+        self._log.debug("Notify time %f", process_time)
         return True
 
-    async def emit_startup(self):
-        await self.startup.notify()
-        for bp in self.__blueprints[1:]:
-            await bp.emit_startup()
+    async def _notify_event(self, update: Update, event: TelegramType, type_: str, **kwargs):
+        if (f_kwargs := await check_filters(update, self._filters, **kwargs)) is not None:
+            async with self.middleware.notify(update=update, **kwargs, **f_kwargs) as mw_kwargs:
+                if processed := await self._handler_observers[type_].notify(
+                    event, **kwargs, **f_kwargs, **mw_kwargs
+                ):
+                    return processed
+                else:
+                    for bp in self._children:
+                        if processed := await bp._notify_event(
+                            update, event, type_, **kwargs, **f_kwargs, **mw_kwargs
+                        ):
+                            return processed
 
-    async def emit_shutdown(self):
-        await self.shutdown.notify()
-        for bp in self.__blueprints[1:]:
-            await bp.emit_shutdown()
+    async def run_setup(self):
+        await self.setup.notify()
+        for st in self._children:
+            await st.run_setup()
 
-    def middleware(self, gen):
-        self.__middlewares.append(contextlib.asynccontextmanager(gen))
-        return gen
+    async def run_destroy(self):
+        await self.destroy.notify()
+        for dt in self._children:
+            await dt.run_destroy()
+
+    async def run_startup(self, **kwargs):
+        if deps := await self.startup.notify(**kwargs):
+            if isinstance(deps, dict):
+                self._deps.update(deps)
+        for bp in self._children:
+            await bp.run_startup(**self._deps, **kwargs)
+
+    async def run_shutdown(self, **kwargs):
+        await self.shutdown.notify(bp=self, **self._deps, **kwargs)
+        for bp in self._children:
+            await bp.run_shutdown()

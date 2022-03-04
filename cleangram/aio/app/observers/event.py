@@ -1,19 +1,28 @@
+import abc
+
 import asyncio
+import functools
+from typing import TYPE_CHECKING
+
+from cleangram.base.app.blueprint import BaseBlueprint
+from cleangram.base.app.observers import BaseEventObserver
 
 
-class EventObserver:
-    def __init__(self):
+class EventObserver(BaseEventObserver):
+    def __init__(self, blueprint: BaseBlueprint):
+        self.__blueprint = blueprint
         self.__events = []
 
-    def register(self, event):
+    def attach(self, event):
         self.__events.append(event)
 
     def __call__(self, event):
-        self.register(event)
+        self.attach(event)
         return event
 
-    def unregister(self, event):
-        self.__events.remove(event)
-
-    async def notify(self):
-        await asyncio.gather(*[e() for e in self.__events])
+    async def notify(self, **kwargs):
+        e_kwargs = {}
+        for event in self.__events:
+            if kw := await functools.partial(event)():
+                e_kwargs.update(kw)
+        return e_kwargs

@@ -1,4 +1,4 @@
-from ._version import __bot_api__, __version__, __doc__
+from ._version import __bot_api__, __doc__, __version__
 
 __all__ = [
     "__version__",

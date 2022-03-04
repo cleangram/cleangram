@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 from .chat_member import ChatMember
 from .user import User
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
+from .base import TelegramType
 from .callback_query import CallbackQuery
 from .chat_join_request import ChatJoinRequest
 from .chat_member_updated import ChatMemberUpdated
@@ -13,7 +14,6 @@ from .poll import Poll
 from .poll_answer import PollAnswer
 from .pre_checkout_query import PreCheckoutQuery
 from .shipping_query import ShippingQuery
-from .base import TelegramType
 
 
 @dataclass

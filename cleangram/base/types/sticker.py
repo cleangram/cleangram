@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
+from .base import TelegramType
 from .mask_position import MaskPosition
 from .photo_size import PhotoSize
-from .base import TelegramType
 
 
 @dataclass

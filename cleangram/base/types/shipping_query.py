@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
-from .shipping_address import ShippingAddress
 from .base import TelegramType
+from .shipping_address import ShippingAddress
 from .user import User
 
 

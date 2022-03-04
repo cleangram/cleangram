@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 
-from .passport_file import PassportFile
 from .base import TelegramType
+from .passport_file import PassportFile
 
 
 @dataclass

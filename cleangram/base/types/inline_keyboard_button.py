@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
+from .base import TelegramType
 from .callback_game import CallbackGame
 from .login_url import LoginUrl
-from .base import TelegramType
 
 
 @dataclass

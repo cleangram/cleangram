@@ -1,6 +1,5 @@
-import contextlib
-
 import abc
+import contextlib
 
 from ...base.http.base import BaseHttp
 

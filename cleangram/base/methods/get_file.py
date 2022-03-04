@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 from ..types import File, Response
 from .base import TelegramMethod
 

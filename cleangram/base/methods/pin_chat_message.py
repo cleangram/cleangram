@@ -3,10 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union
 
+from ...utils import Presets
 from ..types import Response
 from .base import TelegramMethod
-
-from ...utils import Presets
 
 
 @dataclass

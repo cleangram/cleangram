@@ -1,5 +1,4 @@
 import abc
-
 from typing import Dict
 
 from .request import Request

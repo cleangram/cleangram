@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+from .base import TelegramType
 from .message_entity import MessageEntity
 from .poll_option import PollOption
-from .base import TelegramType
 
 
 @dataclass

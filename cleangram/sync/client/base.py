@@ -1,11 +1,10 @@
+from dataclasses import dataclass, field
 from typing import TypeVar, cast
 
-from dataclasses import field, dataclass
-
-from ..http.base import SyncHttp
-from ..http.httpx_ import HttpX
 from ...base.client.bot import BaseBot
 from ...base.methods import TelegramMethod
+from ..http.base import SyncHttp
+from ..http.httpx_ import HttpX
 
 T = TypeVar("T")
 

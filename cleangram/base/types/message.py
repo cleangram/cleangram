@@ -5,6 +5,7 @@ from typing import List, Optional
 
 from .animation import Animation
 from .audio import Audio
+from .base import TelegramType
 from .chat import Chat
 from .contact import Contact
 from .dice import Dice
@@ -21,7 +22,6 @@ from .poll import Poll
 from .proximity_alert_triggered import ProximityAlertTriggered
 from .sticker import Sticker
 from .successful_payment import SuccessfulPayment
-from .base import TelegramType
 from .user import User
 from .venue import Venue
 from .video import Video

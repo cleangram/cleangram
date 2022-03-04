@@ -1,11 +1,10 @@
-import contextlib
-
 from dataclasses import dataclass, field
 
+from ...base import GetMe
 from ...base.client.bot import BaseBot
+from ...base.methods.base import TelegramMethod
 from ..http.base import AioHttp
 from ..http.httpx_ import HttpX
-from ...base.methods.base import TelegramMethod
 
 
 @dataclass

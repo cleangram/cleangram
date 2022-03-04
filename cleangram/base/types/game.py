@@ -4,9 +4,9 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 from .animation import Animation
+from .base import TelegramType
 from .message_entity import MessageEntity
 from .photo_size import PhotoSize
-from .base import TelegramType
 
 
 @dataclass

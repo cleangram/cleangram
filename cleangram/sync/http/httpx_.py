@@ -1,11 +1,9 @@
-from contextlib import ExitStack
-
 import json
-
+from contextlib import ExitStack
 from typing import Dict
 
-from .base import SyncHttp
 from ...base.http.request import Request
+from .base import SyncHttp
 
 
 class HttpX(SyncHttp):
