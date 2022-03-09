@@ -1,8 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List, Optional, Any, Union
 
+from .. import InlineQueryResultCachedAudio, InlineQueryResultCachedDocument, InlineQueryResultCachedGif, \
+    InlineQueryResultCachedMpeg4Gif, InlineQueryResultCachedPhoto, InlineQueryResultCachedSticker, \
+    InlineQueryResultCachedVideo, InlineQueryResultCachedVoice, InlineQueryResultArticle, InlineQueryResultAudio, \
+    InlineQueryResultContact, InlineQueryResultGame, InlineQueryResultDocument, InlineQueryResultGif, \
+    InlineQueryResultLocation, InlineQueryResultMpeg4Gif, InlineQueryResultPhoto, InlineQueryResultVenue, \
+    InlineQueryResultVideo, InlineQueryResultVoice
 from ..types import InlineQueryResult, Response
 from .base import TelegramMethod
 
@@ -20,7 +26,28 @@ class AnswerInlineQuery(TelegramMethod, response=Response[bool]):
     inline_query_id: str
     """Unique identifier for the answered query"""
 
-    results: List[InlineQueryResult]
+    results: List[Union[
+        InlineQueryResultCachedAudio,
+        InlineQueryResultCachedDocument,
+        InlineQueryResultCachedGif,
+        InlineQueryResultCachedMpeg4Gif,
+        InlineQueryResultCachedPhoto,
+        InlineQueryResultCachedSticker,
+        InlineQueryResultCachedVideo,
+        InlineQueryResultCachedVoice,
+        InlineQueryResultArticle,
+        InlineQueryResultAudio,
+        InlineQueryResultContact,
+        InlineQueryResultGame,
+        InlineQueryResultDocument,
+        InlineQueryResultGif,
+        InlineQueryResultLocation,
+        InlineQueryResultMpeg4Gif,
+        InlineQueryResultPhoto,
+        InlineQueryResultVenue,
+        InlineQueryResultVideo,
+        InlineQueryResultVoice
+    ]]
     """A JSON-serialized array of results for the inline query"""
 
     cache_time: Optional[int] = field(default=None)

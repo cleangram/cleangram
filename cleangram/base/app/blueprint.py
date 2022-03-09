@@ -14,14 +14,13 @@ class BaseBlueprint(abc.ABC):
         self,
         name: str,
         *filters,
-        parent: Optional[BaseBlueprint] = None,
         children: List[BaseBlueprint] = (),
+        parent: Optional[BaseBlueprint] = None,
         deps: Dict[str, Any] = None,
         flags: Dict[str, Any] = None,
         **kwargs
     ) -> None:
         self._name = name
-        self._log = logging.getLogger(name)
         self._filters = filters
         self._parent = parent
         self._children = children
@@ -32,34 +31,25 @@ class BaseBlueprint(abc.ABC):
             if isinstance(obs, BaseHandlerObserver)
         }
 
-    # @property
-    # def children(self) -> List[BaseBlueprint]:
-    #     return self._children
-    #
-    # @property
-    # def deps(self) -> Dict[str, Any]:
-    #     return self.__deps
-    #
-    # @property
-    # def flags(self) -> Dict[str, Any]:
-    #     return self.__flags
-    #
-    # @property
-    # def handler_observers(self) -> Dict[str, BaseHandlerObserver]:
-    #     return self.__handler_observers
-    #
+    @property
+    def name(self):
+        return self._name
 
     @property
-    def log(self):
-        return self._log
-
-    @property
-    def deps(self):
-        return self._deps
+    def children(self):
+        return self._children
 
     @property
     def parent(self) -> BaseBlueprint:
         return self._parent
+
+    @parent.setter
+    def parent(self, _parent):
+        self._parent = _parent
+
+    @property
+    def deps(self):
+        return self._deps
 
     @property
     def root(self) -> BaseBlueprint:
@@ -68,17 +58,16 @@ class BaseBlueprint(abc.ABC):
             _root = parent
         return _root
 
-    @parent.setter
-    def parent(self, _parent):
-        self._parent = _parent
-
-    def include(self, children: BaseBlueprint) -> None:
-        children.parent = self
-        self._children.append(children)
-
     @property
-    def children(self):
-        return self._children
+    def log(self):
+        if parent := self._parent:
+            return parent.log.getChild(self._name)
+        else:
+            return logging.getLogger(self._name)
+
+    def include(self, child: BaseBlueprint) -> None:
+        child.parent = self
+        self._children.append(child)
 
     @abc.abstractmethod
     def run_setup(self): ...
@@ -93,7 +82,10 @@ class BaseBlueprint(abc.ABC):
     def run_destroy(self): ...
 
     @abc.abstractmethod
-    def notify(self, update: Update, bot, **kwargs): ...
-
-    @abc.abstractmethod
-    def _notify_event(self, update: Update, event: TelegramType, type_: str, **kwargs): ...
+    def _notify(
+        self,
+        update: Update,
+        event: TelegramType,
+        type_: str,
+        **kwargs
+    ): ...

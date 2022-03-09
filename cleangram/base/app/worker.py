@@ -3,7 +3,7 @@ import abc
 from cleangram.base import Update
 
 
-class Worker(abc.ABC):
+class BaseWorker(abc.ABC):
 
     @abc.abstractmethod
     def __bool__(self) -> bool: ...

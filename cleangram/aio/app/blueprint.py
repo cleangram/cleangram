@@ -49,17 +49,19 @@ class Blueprint(BaseBlueprint):
 
         super().__init__(name, *filters, **kwargs)
 
-    async def notify(self, update: Update, bot: Bot, **kwargs) -> Union[TelegramMethod, bool]:
-        start_time = time()
+    async def run_setup(self):
+        await self.setup.notify()
+        for st in self._children:
+            await st.run_setup()
 
-        event, type_ = get_event_and_type(update)
-        await self._notify_event(update, event, type_, bot=bot, **kwargs)
+    async def run_startup(self, **kwargs):
+        if deps := await self.startup.notify(**kwargs):
+            if isinstance(deps, dict):
+                self._deps.update(deps)
+        for bp in self._children:
+            await bp.run_startup(**self._deps, **kwargs)
 
-        process_time = time() - start_time
-        self._log.debug("Notify time %f", process_time)
-        return True
-
-    async def _notify_event(self, update: Update, event: TelegramType, type_: str, **kwargs):
+    async def _notify(self, update: Update, event: TelegramType, type_: str, **kwargs):
         if (f_kwargs := await check_filters(update, self._filters, **kwargs)) is not None:
             async with self.middleware.notify(update=update, **kwargs, **f_kwargs) as mw_kwargs:
                 if processed := await self._handler_observers[type_].notify(
@@ -68,27 +70,15 @@ class Blueprint(BaseBlueprint):
                     return processed
                 else:
                     for bp in self._children:
-                        if processed := await bp._notify_event(
+                        if processed := await bp._notify(
                             update, event, type_, **kwargs, **f_kwargs, **mw_kwargs
                         ):
                             return processed
-
-    async def run_setup(self):
-        await self.setup.notify()
-        for st in self._children:
-            await st.run_setup()
 
     async def run_destroy(self):
         await self.destroy.notify()
         for dt in self._children:
             await dt.run_destroy()
-
-    async def run_startup(self, **kwargs):
-        if deps := await self.startup.notify(**kwargs):
-            if isinstance(deps, dict):
-                self._deps.update(deps)
-        for bp in self._children:
-            await bp.run_startup(**self._deps, **kwargs)
 
     async def run_shutdown(self, **kwargs):
         await self.shutdown.notify(bp=self, **self._deps, **kwargs)

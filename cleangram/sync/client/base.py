@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import TypeVar, cast
+from typing import TypeVar, cast, Type
 
 from ...base.client.bot import BaseBot
 from ...base.methods import TelegramMethod
@@ -9,9 +9,8 @@ from ..http.httpx_ import HttpX
 T = TypeVar("T")
 
 
-@dataclass
 class SyncBaseBot(BaseBot):
-    http: SyncHttp = field(default_factory=HttpX, repr=False)
+    __http__: Type[SyncHttp] = HttpX
 
     def __call__(self, call: TelegramMethod, timeout: float = None) -> T:
         return cast(

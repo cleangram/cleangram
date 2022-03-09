@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Any
 
 from .inline_keyboard_markup import InlineKeyboardMarkup
 from .inline_query_result import InlineQueryResult
@@ -21,7 +21,7 @@ class InlineQueryResultArticle(InlineQueryResult):
     title: str
     """Title of the result"""
 
-    input_message_content: InputMessageContent
+    input_message_content: Any
     """Content of the message to be sent"""
 
     reply_markup: Optional[InlineKeyboardMarkup] = field(default=None)

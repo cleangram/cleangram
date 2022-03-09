@@ -1,45 +1,45 @@
 import abc
-from dataclasses import InitVar, dataclass, field
-from typing import Dict
+from typing import Dict, Type
 
-from dataclass_factory import Factory, Schema
-
+from .config import BotConfig
 from .. import User
+from ..http.base import BaseHttp
 from ...base.http.request import Request
 
 from ...exceptions import InvalidToken, check
-from ...utils import Presets, env
 from ..methods import TelegramMethod
-from .api import Api
 
 
-def dc_factory():
-    return Factory(default_schema=Schema(omit_default=True))
-
-
-@dataclass
 class BaseBot(abc.ABC):
-    _token: InitVar[str] = field(repr=False)
-    presets: Presets = field(default_factory=Presets)
-    api: Api = field(default_factory=Api)
-    factory: Factory = field(default_factory=dc_factory)
+    __http__: Type[BaseHttp]
 
-    def __post_init__(self, _token: str = env.TG_TOKEN):
-        if not _token:
+    def __init__(
+        self,
+        token: str,
+        config: BotConfig = None,
+        me: User = None
+    ):
+        if not token:
             raise InvalidToken("Token not found")
-        self.__token = _token
-        self._me = User(0, True, "bot")
+        self.__token = token
+        self._me = me or User(int(token.split(":")[0]), True, "bot")
+        self._config = config or BotConfig(
+            http=self.__http__()
+        )
 
     def _build_request(self, call: TelegramMethod, timeout: float) -> Request:
+        print(type(call))
+        print(data := self._config.factory.dump(call))
+
         return Request(
-            url=self.api.base_url(self.__token, call),
-            files=call.preset(self.presets),
-            data=self.factory.dump(call),
+            url=self._config.api.base_url(self.__token, call),
+            files=call.preset(self._config.presets),
+            data=data,
             timeout=timeout,
         )
 
     def _build_result(self, raw: Dict, call: TelegramMethod):
-        return check(self.factory.load(raw, call.__response__)).result
+        return check(self._config.factory.load(raw, call.__response__)).result
 
     @property
     def token(self) -> str:
@@ -48,3 +48,15 @@ class BaseBot(abc.ABC):
     @property
     def me(self) -> User:
         return self._me
+
+    @me.setter
+    def me(self, _me: User) -> None:
+        self._me = _me
+
+    @property
+    def id(self) -> int:
+        return self._me.id
+
+    @property
+    def http(self):
+        return self._config.http

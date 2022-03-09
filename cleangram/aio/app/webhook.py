@@ -3,14 +3,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from ...base import Update
-from ...base.app.worker import Worker
+from ...base.app.worker import BaseWorker
 
 
 if TYPE_CHECKING:
     from .app import App
 
 
-class Webhook(Worker):
+class Webhook(BaseWorker):
     def __init__(
         self,
         app: App

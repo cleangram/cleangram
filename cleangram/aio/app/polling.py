@@ -7,13 +7,13 @@ from typing import TYPE_CHECKING
 from ..client.bot import Bot
 from ..methods import TelegramMethod
 from ...base import Update
-from ...base.app.worker import Worker
+from ...base.app.worker import BaseWorker
 
 if TYPE_CHECKING:
     from .app import App
 
 
-class Polling(Worker):
+class Polling(BaseWorker):
     def __init__(self, app: App) -> None:
         self.__running: bool = False
         self.__app: App = app
@@ -40,12 +40,7 @@ class Polling(Worker):
             await self.__app.run_destroy()
 
     async def notify(self, update: Update, bot: Bot):
-        if processed := await self.__app.notify(
-            update=update,
-            bot=bot,
-            tg=self.__app,
-            bots=self.__bots
-        ):
+        if processed := await self.__app.notify(update, bot):
             if isinstance(processed, TelegramMethod):
                 await bot(processed)
 
