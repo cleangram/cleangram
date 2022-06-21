@@ -6,3 +6,5 @@
 # For libraries it is not necessary to commit the lock file.
 # Why ignored: https://stackoverflow.com/questions/61037557/should-i-commit-lock-file-changes-separately-what-should-i-write-for-the-commi
 poetry.lock
+
+dist/
