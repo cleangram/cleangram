@@ -3,6 +3,8 @@ name = "cleangram"
 version = "0.0.0.dev3"
 description = "Simple framework for develop telegram bots"
 authors = ["Arwichok <me@arwi.dev>"]
+readme = "README.md"
+repository = "https://github.com/cleangram/cleangram"
 
 [tool.poetry.dependencies]
 python = "^3.8"
