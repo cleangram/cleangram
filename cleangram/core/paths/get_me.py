@@ -1,9 +1,8 @@
-from ...core.objects.response import Response
-from ..objects import User
+from ..objects import User, Response
 from .base import TelegramPath
 
 
-class GetMe(TelegramPath, response=Response[User]):
+class GetMe(TelegramPath[User], response=Response[User]):
     """
     A simple method for testing your bot's authentication token. Requires
     no parameters. Returns basic information about the bot in form of a

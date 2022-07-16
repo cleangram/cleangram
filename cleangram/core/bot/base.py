@@ -1,0 +1,41 @@
+import abc
+
+from .bot import Bot
+from ..http.base import Http
+from ..objects import User
+from ..paths import TelegramPath
+from ...util import BotConfig
+
+
+class BaseBot(Bot, abc.ABC):
+    def __init__(self, token: str, config: BotConfig):
+        self.__token = token
+        self.__config = config or BotConfig(http=self.__http__())
+        self._me = User(
+            id=int(token.split(":")[0]),
+            is_bot=True,
+            first_name="Bot"
+        )
+
+    @property
+    def token(self) -> str:
+        return self.__token
+
+    @property
+    def config(self) -> BotConfig:
+        return self.__config
+
+    @property
+    def me(self) -> User:
+        return self._me
+
+    @property
+    def id(self) -> int:
+        return self._me.id
+
+    @property
+    def http(self) -> Http:
+        return self.__config.http
+
+    def base_url(self, path: TelegramPath) -> str:
+        return f"{self.__config.api_url}/bot{self.__token}/{path.__class__.__name__}"
