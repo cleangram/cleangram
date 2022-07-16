@@ -8,7 +8,7 @@ from ...util import BotConfig
 
 
 class BaseBot(Bot, abc.ABC):
-    def __init__(self, token: str, config: BotConfig):
+    def __init__(self, token: str, config: BotConfig = None):
         self.__token = token
         self.__config = config or BotConfig(http=self.__http__())
         self._me = User(

@@ -1,5 +1,6 @@
 from typing import Optional, Any
 
+from ..http import HttpX
 from ...core.bot.base import BaseBot
 from ...core.paths.base import TelegramPath
 from ...core.paths.get_me import GetMe
@@ -7,6 +8,8 @@ from ...core.objects.response import T
 
 
 class Bot(BaseBot):
+    __http__ = HttpX
+
     async def __call__(self, path: TelegramPath, http_timeout: Optional[float] = None) -> T:
         return await self.http(self, path, http_timeout)
 
