@@ -22,14 +22,11 @@ CUSTOM_URANDOM = os.urandom(16)
 @patch("os.urandom", lambda n: CUSTOM_URANDOM)
 async def test_results(abot: cg.aio.Bot, data: TestData):
     url = abot.base_url(data.path)
-    content = cg.Response(ok=True, result=data.result).json(exclude_none=True)
-
+    response = httpx.Response(200, content=cg.Response(ok=True, result=data.result).json(exclude_none=True))
     with contextlib.ExitStack() as stack:
         files = {n: stack.enter_context(open(f.path, "rb")) for n, f in data.files.items()}
         request = httpx.Request(method="POST", url=url, data=data.raw, files=files)
-        mock = respx.post(url, content=request.read()).mock(
-            httpx.Response(200, content=content)
-        )
+        mock = respx.post(url, content=request.read()).mock(response)
         original_result = await abot(data.path)
         assert mock.called
         assert data.result == original_result

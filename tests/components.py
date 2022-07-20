@@ -5,7 +5,8 @@ import cleangram as cg
 from .conftest import TEST_TOKEN
 
 
-CERTIFICATE_FILE = cg.InputFile("README.md")
+TEST_FILE = cg.InputFile("README.md")
+TEST_URL = "https://test.com"
 
 
 @dataclass
@@ -26,11 +27,19 @@ PATH_RESULT_DATA = [
     ),
     TestData(
         cg.SetWebhook(
-            url="https://test.com",
-            certificate=CERTIFICATE_FILE
+            url=TEST_URL,
+            certificate=TEST_FILE
         ),
         True,
-        {"url": "https://test.com"},
-        {"certificate": CERTIFICATE_FILE}
+        {"url": TEST_URL},
+        {"certificate": TEST_FILE}
+    ),
+    TestData(
+        cg.GetWebhookInfo(),
+        cg.WebhookInfo(
+            url=TEST_URL,
+            has_custom_certificate=False,
+            pending_update_count=0,
+        )
     )
 ]

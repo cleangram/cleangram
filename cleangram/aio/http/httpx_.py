@@ -14,11 +14,6 @@ class HttpX(BaseHttpX):
 
     async def __call__(self, bot: BaseBot, path: TelegramPath, timeout: float = 1) -> T:
         """
-        make `request`
-        call request and get response
-        return serialize response and return result
-        with self.builder(bot, path, timeout) as (serialize, request):
-            return serialize(await self._client.request(request))
         :param bot:
         :param path:
         :param timeout:
