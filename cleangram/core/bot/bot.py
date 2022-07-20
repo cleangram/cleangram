@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import abc
-from typing import TYPE_CHECKING, Any, List, Optional, Type, Union
+from typing import TYPE_CHECKING, Any, Optional, Type
 
 if TYPE_CHECKING:
     from ..http import Http
-    from ...util import BotConfig
+    from .config import BotConfig
     from ..objects import User
     from ..paths import TelegramPath
 
@@ -72,3 +72,7 @@ class Bot(abc.ABC):
         Reference: https://core.telegram.org/bots/api#getme
         """
         ...
+
+    @abc.abstractmethod
+    def base_url(self, path: TelegramPath) -> str:
+        pass

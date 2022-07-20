@@ -10,6 +10,13 @@ from ...core.objects.response import T
 class Bot(BaseBot):
     __http__ = HttpX
 
+    async def __aenter__(self):
+        await self.update_me()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.cleanup()
+
     async def __call__(self, path: TelegramPath, http_timeout: Optional[float] = None) -> T:
         return await self.http(self, path, http_timeout)
 

@@ -4,7 +4,7 @@ from .bot import Bot
 from ..http.base import Http
 from ..objects import User
 from ..paths import TelegramPath
-from ...util import BotConfig
+from .config import BotConfig
 
 
 class BaseBot(Bot, abc.ABC):
@@ -38,4 +38,4 @@ class BaseBot(Bot, abc.ABC):
         return self.__config.http
 
     def base_url(self, path: TelegramPath) -> str:
-        return f"{self.__config.api_url}/bot{self.__token}/{path.__class__.__name__}"
+        return f"{self.__config.url}/bot{self.__token}/{path.__class__.__name__}"
