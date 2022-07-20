@@ -39,3 +39,6 @@ class BaseBot(Bot, abc.ABC):
 
     def base_url(self, path: TelegramPath) -> str:
         return f"{self.__config.url}/bot{self.__token}/{path.__class__.__name__}"
+
+    def __repr__(self):
+        return f"Bot({self.token.split(':')[0]})"

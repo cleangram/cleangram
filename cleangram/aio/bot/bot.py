@@ -11,7 +11,7 @@ class Bot(BaseBot):
     __http__ = HttpX
 
     async def __aenter__(self):
-        await self.update_me()
+        # await self.update_me()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):

@@ -11,12 +11,10 @@ class TelegramPath(Component, Generic[T], abc.ABC):
 
     _files: Optional[Dict[str, InputFile]] = PrivateAttr(default_factory=dict)
 
-    @property
-    def files(self):
+    def get_files(self):
         return self._files
 
-    @property
-    def data(self):
+    def get_data(self):
         return self.dict(exclude_none=True, exclude=self._files.keys())
 
     def __init_subclass__(cls, /, **kwargs) -> None:
@@ -33,4 +31,7 @@ class TelegramPath(Component, Generic[T], abc.ABC):
         ...
 
     def attach(self, file: Union[InputFile, str], name: str = None) -> Optional[str]:
-        ...
+        if isinstance(file, InputFile):
+            if name:
+                self._files[name] = file
+                return

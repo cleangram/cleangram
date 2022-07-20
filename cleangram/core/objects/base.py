@@ -12,6 +12,7 @@ class Component(pydantic.BaseModel):
     class Config:
         underscore_attrs_are_private = True
         allow_population_by_field_name = True
+        arbitrary_types_allowed = True
 
 
 class TelegramObject(Component):

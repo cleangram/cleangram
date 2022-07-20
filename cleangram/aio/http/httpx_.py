@@ -1,3 +1,5 @@
+import contextlib
+
 import httpx
 
 from cleangram.core import T
@@ -22,11 +24,15 @@ class HttpX(BaseHttpX):
         :param timeout:
         :return:
         """
-        http_resp = await self._client.post(
-            url=bot.base_url(path),
-            data=path.dict(exclude_none=True),
-            timeout=(timeout or 1)+.1
-        )
+        path.preset(bot)
+        with contextlib.ExitStack() as stack:
+            files = {n: stack.enter_context(open(f.path, "rb")) for n, f in path.get_files().items()}
+            http_resp = await self._client.post(
+                url=bot.base_url(path),
+                files=files,
+                data=path.get_data(),
+                timeout=(timeout or 1)+.1,
+            )
         return self.check(http_resp, path).result
 
     async def close(self):
