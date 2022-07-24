@@ -11,13 +11,13 @@ class Bot(BaseBot):
     __http__ = HttpX
 
     async def __aenter__(self):
-        # await self.update_me()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         await self.cleanup()
 
     async def __call__(self, path: TelegramPath, http_timeout: Optional[float] = None) -> T:
+        path.preset(self)
         return await self.http(self, path, http_timeout)
 
     async def update_me(self):

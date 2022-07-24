@@ -1,10 +1,10 @@
 import abc
 
 from .bot import Bot
+from .config import BotConfig
 from ..http.base import Http
 from ..objects import User
 from ..paths import TelegramPath
-from .config import BotConfig
 
 
 class BaseBot(Bot, abc.ABC):

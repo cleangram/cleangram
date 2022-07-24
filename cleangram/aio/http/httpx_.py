@@ -1,4 +1,5 @@
 import contextlib
+import json
 
 import httpx
 
@@ -19,16 +20,19 @@ class HttpX(BaseHttpX):
         :param timeout:
         :return:
         """
-        path.preset(bot)
         with contextlib.ExitStack() as stack:
-            files = {n: stack.enter_context(open(f.path, "rb")) for n, f in path.get_files().items()}
-            http_resp = await self._client.post(
-                url=bot.base_url(path),
-                files=files,
-                data=path.get_data(),
-                timeout=(timeout or 1)+.1,
-            )
-        return self.check(http_resp, path).result
+            data = {n: json.dumps(o) if isinstance(o, (list, dict)) else o for n, o in path.get_data().items()}
+            print(data)
+            return self.check(
+                http_resp=await self._client.post(
+                    url=bot.base_url(path),
+                    files={n: stack.enter_context(f.open())
+                           for n, f in path.get_files().items()},
+                    data=data,
+                    timeout=(timeout or 1)+.1,
+                ),
+                path=path
+            ).result
 
     async def close(self):
         await self._client.aclose()

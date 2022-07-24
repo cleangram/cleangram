@@ -8,3 +8,6 @@ class InputFile:
 
     def __repr__(self):
         return f"InputFile({self.path!r})"
+
+    def open(self):
+        return open(self.path, "rb")
